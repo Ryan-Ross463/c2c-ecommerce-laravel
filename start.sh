@@ -2,15 +2,44 @@
 
 echo "Starting C2C Ecommerce Laravel Application..."
 
-# Wait for MySQL to be ready
-echo "Waiting for MySQL to be ready..."
+# Debug: Show environment variables
+echo "DEBUG: Environment variables:"
+echo "DATABASE_URL: $DATABASE_URL"
+echo "MYSQL_HOST: $MYSQL_HOST"
+echo "MYSQL_PORT: $MYSQL_PORT"
+echo "MYSQL_DATABASE: $MYSQL_DATABASE"
+echo "MYSQL_USER: $MYSQL_USER"
+echo "APP_URL: $APP_URL"
+
+# Show .env file content
+echo "DEBUG: .env file content:"
+cat .env
+
+# Test basic Laravel setup
+echo "Testing Laravel configuration..."
+php artisan --version
+
+# Test database connection without migrations first
+echo "Testing database connection..."
 for i in {1..30}; do
-    if php artisan migrate:status > /dev/null 2>&1; then
-        echo "MySQL is ready!"
+    if php -r "
+        require 'vendor/autoload.php';
+        \$app = require_once 'bootstrap/app.php';
+        \$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+        try {
+            DB::connection()->getPdo();
+            echo 'Database connected successfully!';
+            exit(0);
+        } catch (Exception \$e) {
+            echo 'Database connection failed: ' . \$e->getMessage();
+            exit(1);
+        }
+    " 2>/dev/null; then
+        echo "Database connection established!"
         break
     fi
-    echo "Waiting for MySQL... attempt $i/30"
-    sleep 2
+    echo "Waiting for database... attempt $i/30"
+    sleep 3
 done
 
 # Run migrations
