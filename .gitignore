@@ -55,3 +55,13 @@ database_backup_*.sql
 
 # Railway specific
 .env.production.local
+
+# Docker development
+docker-compose.override.yml
+.docker/
+
+# Old deployment files (cleanup)
+nixpacks.toml.backup
+Procfile.backup
+start.sh.backup
+deploy-to-railway*.ps1.backup

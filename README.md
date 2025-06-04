@@ -28,13 +28,24 @@ A full-featured Consumer-to-Consumer (C2C) e-commerce platform built with Larave
 
 ## Installation
 
+### Local Development (XAMPP)
 1. Clone the repository
 2. Install dependencies: `composer install`
 3. Copy `.env.example` to `.env` and configure your database settings
 4. Generate application key: `php artisan key:generate`
 5. Run database migrations: `php artisan migrate`
 6. Seed the database: `php artisan db:seed`
-7. Configure your web server to point to the `public` directory
+7. Access via: `http://localhost/c2c_ecommerce/C2C_ecommerce_laravel/public`
+
+### Local Development (Docker)
+1. Clone the repository
+2. Run: `docker-compose up --build`
+3. Access via: `http://localhost:8080`
+
+### Production Deployment (Railway)
+1. Run deployment script: `.\deploy-to-railway-docker.ps1`
+2. Commit and push: `git add . && git commit -m "Deploy" && git push`
+3. Railway automatically builds and deploys using Docker
 
 ## Usage
 
