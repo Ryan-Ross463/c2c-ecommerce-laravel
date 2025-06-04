@@ -1,7 +1,7 @@
 <?php 
 if (!function_exists('my_url')) {
     function my_url($path = null) {
-        $baseUrl = 'http://localhost/c2c_ecommerce/C2C_ecommerce_laravel';
+        $baseUrl = env('APP_URL', 'http://localhost');
         $path = $path ? '/' . ltrim($path, '/') : '';
         return $baseUrl . $path;
     }

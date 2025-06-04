@@ -5,7 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if (!function_exists('my_url')) {
     function my_url($path = '') {
-        return 'http://localhost/c2c_ecommerce/C2C_ecommerce_laravel' . ($path ? '/' . ltrim($path, '/') : '');
+        return env('APP_URL', 'http://localhost') . ($path ? '/' . ltrim($path, '/') : '');
     }
 }
 

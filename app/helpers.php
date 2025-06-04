@@ -10,7 +10,7 @@ if (!function_exists('my_url')) {
      * @return string
      */    function my_url($path = null, $parameters = [], $secure = null)
     {
-        $baseUrl = config('app.url', 'http://localhost/c2c_ecommerce/C2C_ecommerce_laravel');
+        $baseUrl = config('app.url', 'http://localhost');
         
         $path = $path ? '/' . ltrim($path, '/') : '';
 

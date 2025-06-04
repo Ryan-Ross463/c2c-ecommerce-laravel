@@ -7,17 +7,16 @@ if (!isset($_SESSION['_token'])) {
     $_SESSION['_token'] = md5(uniqid(mt_rand(), true));
 }
 
-if (!isset($base_url)) {
-    $base_url = url('/');
+if (!isset($base_url)) {    $base_url = url('/');
     
     if (strpos($base_url, '/c2c_ecommerce/C2C_ecommerce_laravel') === false) {
-        $base_url = env('APP_URL', 'http://localhost/c2c_ecommerce/C2C_ecommerce_laravel');
+        $base_url = env('APP_URL', 'http://localhost');
     }
 }
 
 if (!function_exists('my_url')) {
     function my_url($path = '') {
-        $baseUrl = env('APP_URL', 'http://localhost/c2c_ecommerce/C2C_ecommerce_laravel');
+        $baseUrl = env('APP_URL', 'http://localhost');
         return $baseUrl . ($path ? '/' . ltrim($path, '/') : '');
     }
 }

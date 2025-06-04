@@ -627,7 +627,7 @@ include(resource_path('views/layouts/header.php'));
 
 <script>
 function my_url(path = '') {
-    const baseUrl = 'http://localhost/c2c_ecommerce/C2C_ecommerce_laravel';
+    const baseUrl = window.location.origin;
     return baseUrl + (path ? '/' + path.replace(/^\//, '') : '');
 }
 </script>

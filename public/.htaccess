@@ -10,7 +10,8 @@
     </Files>
 
     RewriteEngine On
-    # RewriteBase /c2c_ecommerce/C2C_ecommerce_laravel/public  # Commented out for production
+    # For development environment only, uncomment the next line locally
+    # RewriteBase /c2c_ecommerce/C2C_ecommerce_laravel/public
     
     # Set CSRF token
     RewriteRule .* - [E=HTTP_X_CSRF_TOKEN:%{HTTP:X-CSRF-TOKEN}]

@@ -15,11 +15,13 @@ if (in_array($originalUri, $skippedFiles)) {
     return false; 
 }
 
-define('APP_BASE_PATH', '/c2c_ecommerce/C2C_ecommerce_laravel');
+// Define base path based on environment
+$isProduction = isset($_SERVER['RAILWAY_PUBLIC_DOMAIN']);
+define('APP_BASE_PATH', $isProduction ? '' : '/c2c_ecommerce/C2C_ecommerce_laravel');
 
 $basePath = APP_BASE_PATH;
 $processedUri = $originalUri;
-if (strpos($processedUri, $basePath) === 0) {
+if (!empty($basePath) && strpos($processedUri, $basePath) === 0) {
     $processedUri = substr($processedUri, strlen($basePath));
     // Clean up the URI - remove leading slash if present since we'll add it back
     $processedUri = ltrim($processedUri, '/');
