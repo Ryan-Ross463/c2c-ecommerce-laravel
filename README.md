@@ -1,8 +1,12 @@
-# C2C E-commerce Laravel Application
+# C2C E-commerce Platform
 
-A Customer-to-Customer (C2C) e-commerce platform built with Laravel framework that enables users to buy and sell products directly with each other.
+A full-featured Consumer-to-Consumer (C2C) e-commerce platform built with Laravel, enabling users to buy and sell products in a marketplace environment.
 
-## Features
+## 🚀 Live Demo
+
+**Production URL:** [https://c2c-ecommerce-laravel-production.up.railway.app](https://c2c-ecommerce-laravel-production.up.railway.app)
+
+## ✨ Features
 
 - User authentication and authorization (Buyers, Sellers, Admins)
 - Product listing and management
