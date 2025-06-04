@@ -1,0 +1,240 @@
+.form-control,
+.form-select {
+    font-size: 0.95rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.15);
+}
+
+.form-label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-text {
+    color: #6c757d;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+.invalid-feedback {
+    font-size: 0.875rem;
+    color: #dc3545;
+    margin-top: 0.5rem;
+}
+
+.form-check {
+    margin: 0;
+    position: relative;
+}
+
+.form-check-input {
+    margin-top: 0.3rem;
+    margin-left: -1.5rem;
+}
+
+.form-check-label {
+    font-size: 0.95rem;
+    color: #495057;
+    cursor: pointer;
+}
+
+.form-check-label a {
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.form-check-label a:hover {
+    color: #34495e;
+    text-decoration: underline;
+}
+
+.form-card {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin: 2rem 0;
+}
+
+.form-title {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 1.75rem;
+    font-weight: 600;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-card {
+    animation: fadeIn 0.6s ease forwards;
+}
+
+.btn-dark {
+    padding: 0.75rem 1.25rem;
+    font-weight: 500;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    background-color: #2c3e50 !important;
+    border: none;
+    transition: all 0.3s ease;
+    color: #ffffff !important;
+}
+
+.btn-dark:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(44, 62, 80, 0.2);
+    background-color: #34495e !important;
+}
+
+.form-separator {
+    display: block;
+    margin: 15px 0;
+    text-align: center;
+    position: relative;
+}
+
+.form-separator::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #e1e1e1;
+}
+
+.form-separator span {
+    position: relative;
+    background: white;
+    padding: 0 15px;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.form-error {
+    color: #fff;
+    background-color: var(--danger-color);
+    border-radius: 5px;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+
+.form-error-icon {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .register-form {
+        grid-template-columns: 1fr;
+    }
+    
+    .register-form .form-group,
+    #create-account-btn,
+    #login-link {
+        grid-column: 1;
+    }
+    
+    .form-card {
+        padding: 1.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-card {
+        padding: 1.5rem;
+        margin: 1rem 0;
+    }
+    
+    .form-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 350px) {
+    .form-card {
+        padding: 1.25rem;
+    }
+}
+
+.alert {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.alert-success {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.alert-danger {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.alert-warning {
+    background-color: #f39c12;
+    color: white;
+}
+
+.alert-info {
+    background-color: #3498db;
+    color: white;
+}
+
+#login-form {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+#forgot-password-form {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.form-text {
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: #6c757d;
+}

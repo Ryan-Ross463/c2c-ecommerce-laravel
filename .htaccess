@@ -1,0 +1,32 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes +FollowSymLinks
+    </IfModule>
+
+    RewriteEngine On
+    
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Allow direct access to specific PHP files in the root
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule .* - [L]
+
+    # For asset files - serve from public directory
+    RewriteRule ^assets/(.*)$ public/assets/$1 [L]
+    
+    # Rewrite for public files in main C2C folder
+    RewriteRule ^(css|js|images|fonts|uploads|vendor)/(.*)$ public/$1/$2 [L]
+    
+    # If the file exists in public, serve it directly
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{DOCUMENT_ROOT}/c2c_ecommerce/C2C_ecommerce_laravel/public/$1 -f
+    RewriteRule ^(.*)$ public/$1 [L]
+
+    # For everything else, pass to our custom index.php (NOT public/index.php)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php [L,QSA]
+</IfModule>

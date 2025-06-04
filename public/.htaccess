@@ -1,0 +1,43 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews +Indexes +FollowSymLinks
+    </IfModule>
+
+    # Prevent direct access to .htaccess
+    <Files .htaccess>
+        Order Allow,Deny
+        Deny from all
+    </Files>
+
+    RewriteEngine On
+    RewriteBase /c2c_ecommerce/C2C_ecommerce_laravel/public
+    
+    # Set CSRF token
+    RewriteRule .* - [E=HTTP_X_CSRF_TOKEN:%{HTTP:X-CSRF-TOKEN}]
+    
+    # Ensure the admin directory gets processed through Laravel
+    RewriteRule ^admin/?$ index.php [L]
+    RewriteRule ^admin/(.*) index.php [L]
+    
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    
+    # Allow direct access to files
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
+    # Allow access to non-existent paths (Laravel will handle them)
+    RewriteRule ^ index.php [QSA,L]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    
+    # Allow direct access to files
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
+    # Allow access to non-existent paths (Laravel will handle them)
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>

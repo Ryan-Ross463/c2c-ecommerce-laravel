@@ -1,0 +1,326 @@
+.admin-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main Admin Header - High specificity to prevent conflicts */
+.admin-body .admin-header,
+header.admin-header {
+    background-color: #2c3e50 !important;
+    color: #fff !important;
+    padding: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 9998 !important;
+    border-radius: 0 !important;
+    border: none !important;
+}
+
+.admin-brand {
+    padding: 0 20px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.admin-brand a {
+    color: #fff !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.admin-brand a:hover {
+    color: #3498db !important;
+    text-shadow: 0 1px 3px rgba(52, 152, 219, 0.3);
+}
+
+.admin-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+/* Admin Navigation */
+.admin-nav {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    position: relative;
+    z-index: 9999 !important;
+}
+
+.admin-nav a {
+    color: #ecf0f1 !important;
+    text-decoration: none;
+    padding: 0 15px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+}
+
+.admin-nav a:hover, 
+.admin-nav a.active {
+    background-color: #34495e !important;
+    color: #3498db !important;
+    border-left-color: #3498db;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-nav a i {
+    margin-right: 8px;
+    font-size: 1rem;
+}
+
+.admin-dropdown {
+    position: relative;
+    height: 100%;
+    z-index: 10000 !important;
+}
+
+.admin-dropdown-toggle {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    color: #ecf0f1 !important;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.admin-dropdown-toggle:hover,
+.admin-dropdown.active .admin-dropdown-toggle {
+    background-color: #34495e !important;
+    color: #3498db !important;
+    border-left-color: #3498db;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-dropdown-container {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 200px;
+    background-color: #fff !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    display: none;
+    z-index: 10000 !important;
+    border: 1px solid #e9ecef;
+    overflow: hidden;
+}
+
+.admin-dropdown.active .admin-dropdown-container {
+    display: block;
+    z-index: 10000 !important;
+    position: absolute !important;
+}
+
+/* Bootstrap and table overrides to prevent dropdown interference - FIXED modal backdrop */
+.table-responsive,
+.dropdown-menu {
+    z-index: 100 !important;
+}
+
+/* Fix modal z-index to work properly with admin header */
+#deleteUserModal {
+    z-index: 10050 !important;
+}
+
+.modal-backdrop,
+.modal-backdrop.show {
+    z-index: 10049 !important;
+}
+
+.admin-dropdown-container {
+    z-index: 10001 !important;
+}
+
+/* Ensure dropdown is always visible */
+.admin-dropdown.active .admin-dropdown-container {
+    z-index: 10001 !important;
+    display: block !important;
+    position: absolute !important;
+    top: 100% !important;
+}
+
+.admin-dropdown-content {
+    padding: 10px 0;
+}
+
+.admin-dropdown-content a {
+    color: #333 !important;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    height: auto;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+}
+
+.admin-dropdown-content a:hover {
+    background-color: #f8f9fa !important;
+    color: #3498db !important;
+    border-left-color: #3498db;
+    transform: translateX(5px);
+}
+
+.admin-dropdown-divider {
+    height: 1px;
+    background-color: #e9ecef;
+    margin: 8px 0;
+}
+
+.admin-main-content {
+    flex: 1;
+    padding: 20px;
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 1 !important;
+}
+
+.admin-footer {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 15px 0;
+    text-align: center;
+    margin-top: auto;
+}
+
+.admin-footer a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.admin-footer a:hover {
+    text-decoration: underline;
+}
+
+.admin-footer-content {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.admin-footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+.admin-footer-copyright {
+    font-size: 0.9rem;
+}
+
+/* Prevent content interference with header dropdowns */
+.admin-content-main,
+.admin-card,
+.card,
+.modal,
+.table-responsive {
+    position: relative;
+    z-index: 1 !important;
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 992px) {
+    .admin-header {
+        flex-direction: column;
+        height: auto;
+        align-items: flex-start;
+    }
+    
+    .admin-brand {
+        width: 100%;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .admin-menu-toggle {
+        display: block;
+    }
+    
+    .admin-nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        align-items: stretch;
+        height: auto;
+    }
+    
+    .admin-nav.show {
+        display: flex;
+    }
+    
+    .admin-nav a, 
+    .admin-dropdown-toggle {
+        padding: 15px;
+        height: auto;
+    }
+    
+    .admin-dropdown {
+        height: auto;
+    }
+    
+    .admin-dropdown-container {
+        position: static;
+        box-shadow: none;
+        display: none;
+        background-color: #34495e;
+    }
+    
+    .admin-dropdown.active .admin-dropdown-container {
+        display: block;
+    }
+    
+    .admin-dropdown-content a {
+        color: #ecf0f1;
+        padding-left: 40px;
+    }
+    
+    .admin-dropdown-content a:hover {
+        background-color: #2c3e50;
+    }
+    
+    .admin-dropdown-divider {
+        background-color: #4a6177;
+    }
+    
+    .admin-footer-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .admin-footer-links {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+}

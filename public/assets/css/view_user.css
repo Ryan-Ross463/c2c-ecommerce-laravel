@@ -1,0 +1,241 @@
+.user-details {
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 0 0 8px 8px;
+}
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid #f0f2f5;
+    transition: background-color 0.2s ease;
+}
+
+.detail-row:hover {
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #495057;
+    width: 160px;
+    flex-shrink: 0;
+    font-size: 0.9375rem;
+}
+
+.detail-value {
+    color: #2c3e50;
+    flex-grow: 1;
+    font-size: 0.9375rem;
+    padding-left: 1rem;
+}
+
+.user-role-badge {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.role-admin {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.role-moderator {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.role-seller {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.role-user {
+    background-color: #e2e3e5;
+    color: #383d41;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-active {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-inactive {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.user-actions {
+    padding: 1.25rem 1.5rem;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.user-actions .btn {
+    min-width: 120px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.user-actions .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #3498db;
+    border-color: #3498db;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+    border-color: #c0392b;
+}
+
+.admin-content-main {
+    margin-top: 70px;
+    padding-bottom: 2rem;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.page-title {
+    color: #2c3e50;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.75rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.page-title:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 3px;
+    background-color: #3498db;
+}
+
+.card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-title {
+    color: #2c3e50;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.back-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .page-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .back-button {
+        align-self: flex-start;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .detail-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .detail-label {
+        width: 100%;
+    }
+    
+    .detail-value {
+        padding-left: 0;
+    }
+    
+    .user-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .user-actions .btn {
+        width: 100%;
+    }
+}

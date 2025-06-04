@@ -1,0 +1,57 @@
+.seller-dashboard-footer {
+    background-color: var(--seller-dark, #2c3e50);
+    color: #fff;
+    padding: 2rem 0;
+    margin-top: 2rem;
+}
+
+.seller-dashboard-footer .footer-brand {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.seller-dashboard-footer .footer-brand h5 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.seller-dashboard-footer .footer-section {
+    margin-bottom: 1.5rem;
+}
+
+.seller-dashboard-footer .footer-heading {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--seller-light, #ecf0f1);
+}
+
+.seller-dashboard-footer .footer-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.seller-dashboard-footer .footer-nav-item {
+    margin-bottom: 0.5rem;
+}
+
+.seller-dashboard-footer .footer-link {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.seller-dashboard-footer .footer-link:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+@media (max-width: 767.98px) {
+    .seller-dashboard-footer .footer-section {
+        text-align: center;
+    }
+}

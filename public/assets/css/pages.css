@@ -1,0 +1,21 @@
+/* 
+* filepath: c:\xampp\htdocs\c2c_ecommerce\C2C_ecommerce_laravel\public\assets\css\pages.css 
+* Styles for static pages like About and Contact
+*/
+
+/* Custom colors */
+.text-primary-dark {
+    color: #2c3e50;
+}
+
+/* Custom button hover states */
+.btn-primary:hover {
+    background-color: #1a252f !important;
+    border-color: #1a252f !important;
+}
+
+/* Basic spacing */
+.lead {
+    font-size: 1.1rem;
+    font-weight: 300;
+}

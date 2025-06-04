@@ -1,0 +1,211 @@
+.admin-header h2.card-title, 
+.card-header h2.card-title {
+    color: #2c3e50;
+    font-weight: 600;
+    opacity: 1;
+    visibility: visible;
+    display: block;
+    margin-bottom: 0 !important;
+}
+
+.admin-content-main {
+    margin-top: 70px; 
+    position: relative;
+    z-index: 5;
+}
+
+.user-action-buttons .btn {
+    margin-right: 0.5rem;
+}
+
+.btn-group {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+}
+
+.btn-group .btn {
+    border-radius: 4px !important;
+    min-width: 28px;      
+    width: 28px;          
+    height: 28px;       
+    padding: 0;          
+    display: flex;      
+    align-items: center; 
+    justify-content: center; 
+}
+
+.action-btn-custom {
+    width: 28px !important;
+    height: 28px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 4px !important;
+}
+
+.btn-group .btn i {
+    margin: 0;          
+    font-size: 0.75rem;   
+}
+
+.admin-search-container .btn {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.875rem;
+    height: auto;
+    min-width: 90px;
+}
+
+.search-action-btn {
+    padding: 0.4rem 0.8rem !important;
+    min-height: 36px;
+    font-size: 0.875rem !important;
+    min-width: 90px;
+}
+
+.admin-search-container .d-grid .btn {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.875rem;
+    min-height: 36px;
+}
+
+@media (max-width: 768px) {
+    .admin-search-container .btn {
+        width: auto;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+    }
+    
+    .btn-group {
+        gap: 0.25rem;
+    }
+    
+    .btn-group .btn {
+        min-width: 26px;
+        width: 26px;
+        height: 26px;
+        padding: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .btn-group {
+        gap: 0.35rem;
+        justify-content: flex-end;
+    }
+    
+    .btn-group .btn {
+        min-width: 24px;
+        width: 24px;
+        height: 24px;
+    }
+    
+    .admin-card .card-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .admin-header .card-title {
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .admin-search-container .d-grid {
+        flex-direction: row;
+    }
+    
+    .admin-search-container .d-grid .btn {
+        flex: 1;
+        padding: 0.25rem;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .admin-search-container .d-grid {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .admin-search-container .d-grid .btn {
+        margin-bottom: 0.5rem;
+    }
+}
+
+.admin-header .card-title {
+    color: #2c3e50 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    font-size: 1.25rem !important;
+}
+
+.admin-btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 0.375rem 0.75rem;
+}
+
+.admin-btn-primary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+/* Modal positioning fixes */
+#deleteUserModal {
+    z-index: 10050 !important;
+}
+
+#deleteUserModal .modal-dialog {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    max-width: 500px !important;
+    width: 90% !important;
+}
+
+#deleteUserModal .modal-backdrop {
+    z-index: 10049 !important;
+}
+
+/* Prevent body scroll when modal is open */
+body.modal-open {
+    overflow: hidden !important;
+    padding-right: 17px !important;
+}
+
+/* Ensure modal appears above all other content */
+.modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out;
+}
+
+.modal.show .modal-dialog {
+    transform: translate(-50%, -50%) !important;
+}
+
+/* Delete modal specific styling */
+#deleteUserModal .modal-content {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+#deleteUserModal .modal-header {
+    background-color: #dc3545;
+    color: white;
+    border-bottom: none;
+}
+
+#deleteUserModal .modal-header .btn-close {
+    filter: invert(1);
+}
+
+#deleteUserModal .modal-body {
+    padding: 1.5rem;
+}
+
+#deleteUserModal .modal-footer {
+    border-top: 1px solid #dee2e6;
+}
