@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Static File Test</title>
+    <style>
+        .test-box {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-box">
+        <h1>Static Files Test</h1>
+        <p>If you can see this styled box, static HTML files are working.</p>
+    </div>
+    
+    <h2>CSS Test</h2>
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <div id="main-header" class="navbar navbar-expand-lg">
+        <div class="navbar-brand">Test Brand</div>
+        <div class="nav-link">Test Link</div>
+    </div>
+    
+    <h2>JavaScript Test</h2>
+    <script>
+        console.log('Inline JS working');
+        document.body.style.fontFamily = 'Arial, sans-serif';
+    </script>
+    
+    <script src="/assets/js/header.js"></script>
+    
+    <div id="js-test">JavaScript file will modify this text</div>
+</body>
+</html>

@@ -7,18 +7,28 @@ $uri = urldecode(
     parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
 );
 
+// Remove query parameters for file existence check
+$cleanUri = $uri;
+if (strpos($cleanUri, '?') !== false) {
+    $cleanUri = substr($cleanUri, 0, strpos($cleanUri, '?'));
+}
+
 // If the request is for a static file in the public directory, serve it directly
-if ($uri !== '/') {
-    $publicFile = __DIR__.'/public'.$uri;
-    if (file_exists($publicFile)) {
+if ($cleanUri !== '/') {
+    $publicFile = __DIR__.'/public'.$cleanUri;
+    if (file_exists($publicFile) && is_file($publicFile)) {
         // Set appropriate content type for different file types
-        $extension = pathinfo($publicFile, PATHINFO_EXTENSION);
+        $extension = strtolower(pathinfo($publicFile, PATHINFO_EXTENSION));
+        
+        // Add cache headers for static assets
+        header('Cache-Control: public, max-age=3600');
+        
         switch ($extension) {
             case 'css':
-                header('Content-Type: text/css');
+                header('Content-Type: text/css; charset=utf-8');
                 break;
             case 'js':
-                header('Content-Type: application/javascript');
+                header('Content-Type: application/javascript; charset=utf-8');
                 break;
             case 'png':
                 header('Content-Type: image/png');
@@ -36,7 +46,25 @@ if ($uri !== '/') {
             case 'ico':
                 header('Content-Type: image/x-icon');
                 break;
+            case 'woff':
+            case 'woff2':
+                header('Content-Type: font/woff');
+                break;
+            case 'ttf':
+                header('Content-Type: font/ttf');
+                break;
+            case 'html':
+                header('Content-Type: text/html; charset=utf-8');
+                break;
+            default:
+                // Let the browser determine the content type
+                break;
         }
+        
+        // Set content length
+        header('Content-Length: ' . filesize($publicFile));
+        
+        // Output the file
         readfile($publicFile);
         return;
     }
