@@ -1,8 +1,16 @@
 <?php 
 if (!function_exists('my_url')) {
     function my_url($path = null) {
-        // Use config() instead of env() for cached config support
-        $baseUrl = config('app.url', 'http://localhost');
+        // For Railway deployment, ensure proper HTTPS URL
+        if (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'railway.app') !== false) {
+            $baseUrl = 'https://' . $_SERVER['HTTP_HOST'];
+        } else {
+            $baseUrl = config('app.url', 'http://localhost');
+            // Ensure we have a protocol
+            if (!preg_match('/^https?:\/\//', $baseUrl)) {
+                $baseUrl = 'https://' . ltrim($baseUrl, '/');
+            }
+        }
         $path = $path ? '/' . ltrim($path, '/') : '';
         return $baseUrl . $path;
     }
