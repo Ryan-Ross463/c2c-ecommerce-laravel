@@ -7,40 +7,66 @@
     flex-direction: column;
 }
 
+/* Admin Body Reset - Override Bootstrap completely */
+body.admin-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    background-color: #f8f9fa !important;
+    color: #333 !important;
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background-image: none !important;
+    background: #f8f9fa !important;
+}
+
 /* Main Admin Header - High specificity to prevent conflicts */
 .admin-body .admin-header,
-header.admin-header {
+header.admin-header,
+body.admin-body .admin-header,
+body.admin-body header.admin-header,
+.admin-body .navbar,
+.admin-body .navbar-brand {
     background-color: #2c3e50 !important;
+    background-image: none !important;
+    background: #2c3e50 !important;
     color: #fff !important;
-    padding: 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
-    position: sticky;
-    top: 0;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    height: 60px !important;
+    min-height: 60px !important;
+    position: sticky !important;
+    top: 0 !important;
     z-index: 9998 !important;
     border-radius: 0 !important;
     border: none !important;
+    width: 100% !important;
 }
 
 .admin-brand {
-    padding: 0 20px;
-    font-size: 1.3rem;
-    font-weight: 700;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    padding: 0 20px !important;
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+    color: #fff !important;
+    margin: 0 !important;
 }
 
 .admin-brand a {
     color: #fff !important;
-    text-decoration: none;
-    transition: color 0.3s ease;
+    text-decoration: none !important;
+    transition: color 0.3s ease !important;
 }
 
 .admin-brand a:hover {
     color: #3498db !important;
-    text-shadow: 0 1px 3px rgba(52, 152, 219, 0.3);
+    text-shadow: 0 1px 3px rgba(52, 152, 219, 0.3) !important;
+    text-decoration: none !important;
 }
 
 .admin-menu-toggle {
@@ -55,32 +81,39 @@ header.admin-header {
 
 /* Admin Navigation */
 .admin-nav {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    position: relative;
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+    position: relative !important;
     z-index: 9999 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
 }
 
 .admin-nav a {
     color: #ecf0f1 !important;
-    text-decoration: none;
-    padding: 0 15px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    transition: all 0.3s ease;
-    font-weight: 500;
-    border-left: 3px solid transparent;
+    text-decoration: none !important;
+    padding: 0 15px !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    transition: all 0.3s ease !important;
+    font-weight: 500 !important;
+    border-left: 3px solid transparent !important;
+    background: none !important;
+    background-color: transparent !important;
+    margin: 0 !important;
 }
 
 .admin-nav a:hover, 
 .admin-nav a.active {
     background-color: #34495e !important;
     color: #3498db !important;
-    border-left-color: #3498db;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-left-color: #3498db !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    text-decoration: none !important;
 }
 
 .admin-nav a i {
