@@ -19,6 +19,9 @@ yarn-error.log
 /.fleet
 /.idea
 /.nova
+
+# Temporary backup files for Railway deployment
+*.bak
 /.vscode
 /.zed
 
