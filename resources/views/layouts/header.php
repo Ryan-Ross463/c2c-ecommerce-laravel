@@ -16,7 +16,8 @@ if (!isset($base_url)) {    $base_url = url('/');
 
 if (!function_exists('my_url')) {
     function my_url($path = '') {
-        $baseUrl = env('APP_URL', 'http://localhost');
+        // Use config() instead of env() for cached config support
+        $baseUrl = config('app.url', 'http://localhost');
         return $baseUrl . ($path ? '/' . ltrim($path, '/') : '');
     }
 }

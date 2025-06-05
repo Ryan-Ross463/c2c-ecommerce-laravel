@@ -32,8 +32,12 @@ class AppServiceProvider extends ServiceProvider
         
         URL::forceRootUrl(config('app.url'));
         
+        // Only apply custom subpath logic in local development, not on Railway
+        $isRailway = env('RAILWAY_ENVIRONMENT') || 
+                     strpos(config('app.url'), 'railway.app') !== false;
+        
         $customPath = env('APP_SUBPATH');
-        if ($customPath && strpos(config('app.url'), $customPath) !== false) {
+        if (!$isRailway && $customPath && strpos(config('app.url'), $customPath) !== false) {
             $this->app['request']->server->set(
                 'SCRIPT_NAME',
                 $customPath . '/index.php'
