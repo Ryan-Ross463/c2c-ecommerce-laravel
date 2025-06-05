@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Diagnostics - C2C E-commerce</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .diagnostic-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success { border-color: #28a745; background-color: #f8fff9; }
+        .error { border-color: #dc3545; background-color: #fff5f5; }
+        .test-result { 
+            padding: 10px; 
+            margin: 5px 0; 
+            border-radius: 3px;
+        }
+        .pass { background-color: #d4edda; color: #155724; }
+        .fail { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Asset Diagnostics - C2C E-commerce</h1>
+        
+        <!-- CSS Test Section -->
+        <div class="diagnostic-section">
+            <h2>CSS Files Test</h2>
+            <div id="css-tests">
+                <div class="test-result" id="css-main">Testing main.css...</div>
+                <div class="test-result" id="css-header">Testing header.css...</div>
+                <div class="test-result" id="css-footer">Testing footer.css...</div>
+                <div class="test-result" id="css-products">Testing products.css...</div>
+                <div class="test-result" id="css-index">Testing index.css...</div>
+            </div>
+        </div>
+
+        <!-- JavaScript Test Section -->
+        <div class="diagnostic-section">
+            <h2>JavaScript Files Test</h2>
+            <div id="js-tests">
+                <div class="test-result" id="js-header">Testing header.js...</div>
+                <div class="test-result" id="js-index">Testing index.js...</div>
+                <div class="test-result" id="js-browse">Testing browse.js...</div>
+                <div class="test-result" id="js-admin">Testing admin_products.js...</div>
+            </div>
+        </div>
+
+        <!-- Visual CSS Test -->
+        <div class="diagnostic-section">
+            <h2>Visual CSS Test</h2>
+            <link href="/assets/css/header.css" rel="stylesheet">
+            <div id="main-header" class="navbar navbar-expand-lg">
+                <div class="container">
+                    <div class="navbar-brand">C2C E-commerce</div>
+                    <div class="navbar-nav">
+                        <div class="nav-link">Test Link</div>
+                    </div>
+                </div>
+            </div>
+            <p>If the header above has a dark blue background (#2c3e50), CSS is working correctly.</p>
+        </div>
+
+        <!-- Environment Info -->
+        <div class="diagnostic-section">
+            <h2>Environment Information</h2>
+            <div id="env-info">
+                <p><strong>Current URL:</strong> <span id="current-url"></span></p>
+                <p><strong>User Agent:</strong> <span id="user-agent"></span></p>
+                <p><strong>Base URL:</strong> <span id="base-url"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Test CSS files
+        const cssFiles = [
+            {file: 'main.css', id: 'css-main'},
+            {file: 'header.css', id: 'css-header'},
+            {file: 'footer.css', id: 'css-footer'},
+            {file: 'products.css', id: 'css-products'},
+            {file: 'index.css', id: 'css-index'}
+        ];
+
+        // Test JS files
+        const jsFiles = [
+            {file: 'header.js', id: 'js-header'},
+            {file: 'index.js', id: 'js-index'},
+            {file: 'browse.js', id: 'js-browse'},
+            {file: 'admin_products.js', id: 'js-admin'}
+        ];
+
+        // Function to test file accessibility
+        async function testFile(path, elementId, type) {
+            try {
+                const response = await fetch(path);
+                const element = document.getElementById(elementId);
+                
+                if (response.ok) {
+                    const contentType = response.headers.get('content-type');
+                    element.innerHTML = `✅ ${path} - Status: ${response.status} - Type: ${contentType}`;
+                    element.classList.add('pass');
+                } else {
+                    element.innerHTML = `❌ ${path} - Status: ${response.status} - ${response.statusText}`;
+                    element.classList.add('fail');
+                }
+            } catch (error) {
+                const element = document.getElementById(elementId);
+                element.innerHTML = `❌ ${path} - Error: ${error.message}`;
+                element.classList.add('fail');
+            }
+        }
+
+        // Test all CSS files
+        cssFiles.forEach(({file, id}) => {
+            testFile(`/assets/css/${file}`, id, 'css');
+        });
+
+        // Test all JS files
+        jsFiles.forEach(({file, id}) => {
+            testFile(`/assets/js/${file}`, id, 'js');
+        });
+
+        // Display environment info
+        document.getElementById('current-url').textContent = window.location.href;
+        document.getElementById('user-agent').textContent = navigator.userAgent;
+        document.getElementById('base-url').textContent = window.location.origin;
+
+        // Test if header.js is working by loading it
+        const headerScript = document.createElement('script');
+        headerScript.src = '/assets/js/header.js';
+        headerScript.onload = function() {
+            console.log('header.js loaded successfully');
+        };
+        headerScript.onerror = function() {
+            console.error('Failed to load header.js');
+        };
+        document.head.appendChild(headerScript);
+    </script>
+</body>
+</html>
