@@ -75,6 +75,63 @@ try {
       <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">    <!-- Admin Header and Footer styling -->
     <link rel="stylesheet" href="<?php echo asset('assets/css/admin_dashboard_header.css'); ?>?v=<?php echo time(); ?>">
+    
+    <!-- CRITICAL INLINE CSS - HIGHEST SPECIFICITY -->
+    <style>
+        /* Force admin header styling with inline CSS */
+        .admin-header {
+            background-color: #2c3e50 !important;
+            background: #2c3e50 !important;
+            color: #fff !important;
+            height: 60px !important;
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            border: none !important;
+            border-radius: 0 !important;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .admin-brand {
+            color: #fff !important;
+            padding: 0 20px !important;
+            font-size: 1.3rem !important;
+            font-weight: 700 !important;
+        }
+        
+        .admin-brand a {
+            color: #fff !important;
+            text-decoration: none !important;
+        }
+        
+        .admin-brand a:hover {
+            color: #3498db !important;
+            text-decoration: none !important;
+        }
+        
+        .admin-nav {
+            display: flex !important;
+            align-items: center !important;
+            height: 100% !important;
+        }
+        
+        .admin-nav a {
+            color: #ecf0f1 !important;
+            text-decoration: none !important;
+            padding: 0 15px !important;
+            height: 100% !important;
+            display: flex !important;
+            align-items: center !important;
+        }
+        
+        .admin-nav a:hover {
+            background-color: #34495e !important;
+            color: #fff !important;
+            text-decoration: none !important;
+        }
+    </style>
       <?php if ($current_page === 'dashboard' || $current_folder === 'dashboard'): ?>
     <!-- Dashboard specific styles -->
     <link rel="stylesheet" href="<?php echo asset('assets/css/admin_dashboard.css'); ?>">
