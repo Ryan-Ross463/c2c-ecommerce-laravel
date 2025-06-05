@@ -1,6 +1,22 @@
-</div>     <footer class="admin-footer">        <div class="admin-footer-content">
-            <div class="admin-footer-copyright">
-                 C2C E-commerce Platform.
+    </div> <!-- Close admin-main-content -->
+    
+    <footer class="admin-footer">
+        <div class="admin-footer-content">
+            <div class="admin-footer-left">
+                <div class="admin-footer-copy">
+                    &copy; <?php echo date('Y'); ?> C2C E-commerce Platform. All rights reserved.
+                </div>
+            </div>
+            <div class="admin-footer-right">
+                <a href="<?php echo my_url('/'); ?>" target="_blank">
+                    <i class="fas fa-globe"></i> View Site
+                </a>
+                <a href="<?php echo my_url('/admin/help'); ?>">
+                    <i class="fas fa-question-circle"></i> Help
+                </a>
+                <a href="<?php echo my_url('/admin/support'); ?>">
+                    <i class="fas fa-headset"></i> Support
+                </a>
             </div>
         </div>
     </footer>

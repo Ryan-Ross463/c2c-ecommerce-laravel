@@ -44,7 +44,6 @@ if (!isset($admin)) {
     $admin = (object) ['name' => 'Admin'];
 }
 
-// Safe way to get current page without Laravel helpers
 $current_page = '';
 $current_folder = '';
 
@@ -53,14 +52,12 @@ try {
         $current_page = basename(request()->path());
         $current_folder = basename(dirname(request()->path() == '/' ? '.' : request()->path()));
     } else {
-        // Fallback using $_SERVER
         $path = $_SERVER['REQUEST_URI'] ?? '/';
         $path = parse_url($path, PHP_URL_PATH) ?? '/';
         $current_page = basename($path);
         $current_folder = basename(dirname($path == '/' ? '.' : $path));
     }
 } catch (Exception $e) {
-    // Fallback for any errors
     $current_page = '';
     $current_folder = '';
 }
@@ -70,15 +67,23 @@ try {
 <head>    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="base-url" content="<?php echo $base_url; ?>">
-    <title><?php echo isset($page_title) ? $page_title . " - C2C E-commerce Admin" : "Admin Dashboard - C2C E-commerce"; ?></title><link rel="icon" href="<?php echo $base_url; ?>/assets/images/favicon.ico" type="image/x-icon">    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-      <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">    <!-- Admin Header and Footer styling -->
-    <link rel="stylesheet" href="<?php echo asset('assets/css/admin_dashboard_header.css'); ?>?v=<?php echo time(); ?>">
-    
-    <!-- CRITICAL INLINE CSS - HIGHEST SPECIFICITY -->
+    <title><?php echo isset($page_title) ? $page_title . " - C2C E-commerce Admin" : "Admin Dashboard - C2C E-commerce"; ?></title><link rel="icon" href="<?php echo $base_url; ?>/assets/images/favicon.ico" type="image/x-icon">     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+      <!-- CRITICAL INLINE CSS - HIGHEST SPECIFICITY -->
     <style>
-        /* Force admin header styling with inline CSS */
+        /* Admin Body Styling */
+        body.admin-body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+            background-color: #f8f9fa !important;
+            color: #333 !important;
+            min-height: 100vh !important;
+            display: flex !important;
+            flex-direction: column !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Admin Header Styling */
         .admin-header {
             background-color: #2c3e50 !important;
             background: #2c3e50 !important;
@@ -92,6 +97,9 @@ try {
             border: none !important;
             border-radius: 0 !important;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 1000 !important;
         }
         
         .admin-brand {
@@ -110,35 +118,241 @@ try {
             color: #3498db !important;
             text-decoration: none !important;
         }
+
+        /* Mobile Menu Toggle */
+        .admin-menu-toggle {
+            display: none !important;
+            background: none !important;
+            border: none !important;
+            color: #fff !important;
+            font-size: 1.2rem !important;
+            cursor: pointer !important;
+            margin-right: 15px !important;
+        }
         
+        /* Navigation Styling */
         .admin-nav {
             display: flex !important;
             align-items: center !important;
             height: 100% !important;
+            position: relative !important;
         }
         
-        .admin-nav a {
+        .admin-nav > a {
             color: #ecf0f1 !important;
             text-decoration: none !important;
             padding: 0 15px !important;
             height: 100% !important;
             display: flex !important;
             align-items: center !important;
+            transition: background-color 0.3s ease !important;
         }
         
-        .admin-nav a:hover {
+        .admin-nav > a:hover,
+        .admin-nav > a.active {
             background-color: #34495e !important;
             color: #fff !important;
             text-decoration: none !important;
         }
+
+        /* Dropdown Styling */
+        .admin-dropdown {
+            position: relative !important;
+            height: 100% !important;
+        }
+
+        .admin-dropdown-toggle {
+            color: #ecf0f1 !important;
+            text-decoration: none !important;
+            padding: 0 15px !important;
+            height: 60px !important;
+            display: flex !important;
+            align-items: center !important;
+            cursor: pointer !important;
+            transition: background-color 0.3s ease !important;
+            border: none !important;
+            background: none !important;
+        }
+
+        .admin-dropdown-toggle:hover {
+            background-color: #34495e !important;
+            color: #fff !important;
+            text-decoration: none !important;
+        }
+
+        .admin-dropdown-toggle span {
+            margin-left: 8px !important;
+        }
+
+        .admin-dropdown-toggle i {
+            margin-right: 5px !important;
+        }
+
+        /* Dropdown Container */
+        .admin-dropdown-container {
+            position: absolute !important;
+            top: 100% !important;
+            left: 0 !important;
+            background: #fff !important;
+            border: 1px solid #ddd !important;
+            border-radius: 4px !important;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+            min-width: 200px !important;
+            z-index: 9999 !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            transform: translateY(-10px) !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .admin-dropdown.active .admin-dropdown-container {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateY(0) !important;
+        }
+
+        .admin-dropdown-content {
+            padding: 8px 0 !important;
+        }
+
+        .admin-dropdown-content a {
+            display: block !important;
+            padding: 10px 16px !important;
+            color: #333 !important;
+            text-decoration: none !important;
+            transition: background-color 0.2s ease !important;
+            border: none !important;
+            width: 100% !important;
+            text-align: left !important;
+        }
+
+        .admin-dropdown-content a:hover {
+            background-color: #f8f9fa !important;
+            color: #2c3e50 !important;
+            text-decoration: none !important;
+        }
+
+        .admin-dropdown-content a i {
+            margin-right: 8px !important;
+            width: 16px !important;
+            text-align: center !important;
+        }
+
+        .admin-dropdown-divider {
+            height: 1px !important;
+            background-color: #eee !important;
+            margin: 8px 0 !important;
+        }
+
+        /* Main Content Area */
+        .admin-main-content {
+            flex: 1 !important;
+            padding: 20px !important;
+            background-color: #f8f9fa !important;
+        }
+
+        /* Admin Footer Styling */
+        .admin-footer {
+            background-color: #34495e !important;
+            color: #ecf0f1 !important;
+            padding: 20px 0 !important;
+            margin-top: auto !important;
+            border-top: 1px solid #2c3e50 !important;
+        }
+
+        .admin-footer-content {
+            max-width: 1200px !important;
+            margin: 0 auto !important;
+            padding: 0 20px !important;
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+        }
+
+        .admin-footer-left {
+            flex: 1 !important;
+        }
+
+        .admin-footer-right {
+            display: flex !important;
+            gap: 20px !important;
+        }
+
+        .admin-footer a {
+            color: #bdc3c7 !important;
+            text-decoration: none !important;
+            transition: color 0.3s ease !important;
+        }
+
+        .admin-footer a:hover {
+            color: #3498db !important;
+            text-decoration: none !important;
+        }
+
+        .admin-footer-copy {
+            font-size: 0.9rem !important;
+            color: #95a5a6 !important;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .admin-menu-toggle {
+                display: block !important;
+            }
+
+            .admin-nav {
+                position: absolute !important;
+                top: 100% !important;
+                left: 0 !important;
+                right: 0 !important;
+                background-color: #2c3e50 !important;
+                flex-direction: column !important;
+                height: auto !important;
+                display: none !important;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+            }
+
+            .admin-nav.show {
+                display: flex !important;
+            }
+
+            .admin-nav > a,
+            .admin-dropdown-toggle {
+                height: 50px !important;
+                border-bottom: 1px solid #34495e !important;
+            }
+
+            .admin-dropdown-container {
+                position: static !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: none !important;
+                box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+                background-color: #34495e !important;
+            }
+
+            .admin-dropdown-content a {
+                color: #ecf0f1 !important;
+                padding-left: 30px !important;
+            }
+
+            .admin-dropdown-content a:hover {
+                background-color: #2c3e50 !important;
+                color: #fff !important;
+            }
+
+            .admin-footer-content {
+                flex-direction: column !important;
+                text-align: center !important;
+                gap: 10px !important;
+            }
+        }
     </style>
       <?php if ($current_page === 'dashboard' || $current_folder === 'dashboard'): ?>
-    <!-- Dashboard specific styles -->
+   
     <link rel="stylesheet" href="<?php echo asset('assets/css/admin_dashboard.css'); ?>">
     <?php endif; ?>
-    
-    <!-- Note: Admin header and footer styling is now handled by external CSS file -->
-    <!-- admin_dashboard_header.css contains all necessary styling with proper Bootstrap overrides -->
     
     <?php if (isset($custom_css)) echo $custom_css; ?> <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -302,7 +516,6 @@ try {
                     var parentDropdown = this.closest('.admin-dropdown');
                     var isActive = parentDropdown.classList.contains('active');
                     
-                    // Close all dropdowns
                     var allDropdowns = document.querySelectorAll('.admin-dropdown');
                     for (var j = 0; j < allDropdowns.length; j++) {
                         allDropdowns[j].classList.remove('active');
