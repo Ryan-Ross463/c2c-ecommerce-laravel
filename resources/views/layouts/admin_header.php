@@ -5,12 +5,11 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if (!function_exists('my_url')) {
     function my_url($path = '') {
-        // For Railway deployment, ensure proper HTTPS URL
         if (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'railway.app') !== false) {
             $baseUrl = 'https://' . $_SERVER['HTTP_HOST'];
         } else {
             $baseUrl = config('app.url', 'http://localhost');
-            // Ensure we have a protocol
+
             if (!preg_match('/^https?:\/\//', $baseUrl)) {
                 $baseUrl = 'https://' . ltrim($baseUrl, '/');
             }
@@ -23,18 +22,18 @@ $base_url = my_url();
 
 if (!function_exists('asset')) {
     function asset($path) {
-        // For Railway deployment, ensure proper HTTPS URL
+       
         if (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'railway.app') !== false) {
             $baseUrl = 'https://' . $_SERVER['HTTP_HOST'];
-            // Railway serves assets directly from root, no 'public/' prefix needed
+          
             return $baseUrl . '/' . ltrim($path, '/');
         } else {
             $baseUrl = config('app.url', 'http://localhost');
-            // Ensure we have a protocol
+           
             if (!preg_match('/^https?:\/\//', $baseUrl)) {
                 $baseUrl = 'https://' . ltrim($baseUrl, '/');
             }
-            // For local development, prepend 'public/' for the correct path
+          
             $publicPath = 'public/' . ltrim($path, '/');
             return $baseUrl . '/' . $publicPath;
         }
@@ -45,8 +44,26 @@ if (!isset($admin)) {
     $admin = (object) ['name' => 'Admin'];
 }
 
-$current_page = basename(request()->path());
-$current_folder = basename(dirname(request()->path() == '/' ? '.' : request()->path()));
+// Safe way to get current page without Laravel helpers
+$current_page = '';
+$current_folder = '';
+
+try {
+    if (function_exists('request') && request()) {
+        $current_page = basename(request()->path());
+        $current_folder = basename(dirname(request()->path() == '/' ? '.' : request()->path()));
+    } else {
+        // Fallback using $_SERVER
+        $path = $_SERVER['REQUEST_URI'] ?? '/';
+        $path = parse_url($path, PHP_URL_PATH) ?? '/';
+        $current_page = basename($path);
+        $current_folder = basename(dirname($path == '/' ? '.' : $path));
+    }
+} catch (Exception $e) {
+    // Fallback for any errors
+    $current_page = '';
+    $current_folder = '';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,9 +83,9 @@ $current_folder = basename(dirname(request()->path() == '/' ? '.' : request()->p
     <!-- Note: Admin header and footer styling is now handled by external CSS file -->
     <!-- admin_dashboard_header.css contains all necessary styling with proper Bootstrap overrides -->
     
-    <?php if (isset($custom_css)) echo $custom_css; ?><!-- Admin JS - Bootstrap toggle implementation for mobile menu -->    <script>
+    <?php if (isset($custom_css)) echo $custom_css; ?> <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Simple mobile menu toggle
+           
             const menuToggle = document.getElementById('adminMenuToggle');
             const adminNav = document.getElementById('adminNav');
             
@@ -78,19 +95,16 @@ $current_folder = basename(dirname(request()->path() == '/' ? '.' : request()->p
                     adminNav.classList.toggle('show');
                 });
             }
-              // Very simple dropdown toggle implementation
+            
             const dropdownToggles = document.querySelectorAll('.admin-dropdown-toggle');
             
-            // Add click event to each dropdown toggle
             dropdownToggles.forEach(function(toggle) {
                 toggle.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                     
-                    // Get the parent dropdown
                     const parentDropdown = this.closest('.admin-dropdown');
                     
-                    // Close other dropdowns
                     document.querySelectorAll('.admin-dropdown').forEach(function(dropdown) {
                         if (dropdown !== parentDropdown) {
                             dropdown.classList.remove('active');
@@ -101,10 +115,8 @@ $current_folder = basename(dirname(request()->path() == '/' ? '.' : request()->p
                         }
                     });
                     
-                    // Toggle this dropdown
                     parentDropdown.classList.toggle('active');
                     
-                    // Force z-index for active dropdown
                     const container = parentDropdown.querySelector('.admin-dropdown-container');
                     if (container) {
                         if (parentDropdown.classList.contains('active')) {
@@ -117,14 +129,12 @@ $current_folder = basename(dirname(request()->path() == '/' ? '.' : request()->p
                 });
             });
             
-            // Close dropdowns when clicking outside
             document.addEventListener('click', function() {
                 document.querySelectorAll('.admin-dropdown').forEach(function(dropdown) {
                     dropdown.classList.remove('active');
                 });
             });
             
-            // Prevent dropdown menus from closing when clicking inside them
             document.querySelectorAll('.admin-dropdown-container').forEach(function(container) {
                 container.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -212,7 +222,7 @@ $current_folder = basename(dirname(request()->path() == '/' ? '.' : request()->p
                             if (function_exists('csrf_field')) {
                                 echo csrf_field(); 
                             } else {
-                                // Fallback for direct PHP includes                                echo '<input type="hidden" name="_token" value="'.($_SESSION['_token'] ?? md5(uniqid(mt_rand(), true))).'">';
+                                
                             }
                             ?>
                         </form>
@@ -221,10 +231,10 @@ $current_folder = basename(dirname(request()->path() == '/' ? '.' : request()->p
             </div>
         </nav>
     </header>
-    <!-- Backup JavaScript for dropdown functionality - will run even if other scripts fail -->
-    <script>        // This will run immediately
+    
+    <script>       
         (function() {
-            // Direct implementation that bypasses potential issues
+           
             var allToggles = document.querySelectorAll('.admin-dropdown-toggle');
             
             for (var i = 0; i < allToggles.length; i++) {
@@ -245,7 +255,6 @@ $current_folder = basename(dirname(request()->path() == '/' ? '.' : request()->p
                         }
                     }
                     
-                    // Toggle current dropdown
                     if (!isActive) {
                         parentDropdown.classList.add('active');
                         var container = parentDropdown.querySelector('.admin-dropdown-container');
@@ -258,8 +267,7 @@ $current_folder = basename(dirname(request()->path() == '/' ? '.' : request()->p
                     return false;
                 };
             }
-            
-            // Close dropdowns when clicking outside
+           
             document.onclick = function(e) {
                 if (!e.target.closest('.admin-dropdown')) {
                     var allDropdowns = document.querySelectorAll('.admin-dropdown');
@@ -269,7 +277,6 @@ $current_folder = basename(dirname(request()->path() == '/' ? '.' : request()->p
                 }
             };
             
-            // Prevent dropdown containers from closing when clicking inside
             var allContainers = document.querySelectorAll('.admin-dropdown-container');
             for (var k = 0; k < allContainers.length; k++) {
                 allContainers[k].onclick = function(e) {

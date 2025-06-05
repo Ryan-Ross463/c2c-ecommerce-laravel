@@ -1,6 +1,4 @@
 <?php
-// filepath: c:\xampp\htdocs\c2c_ecommerce\C2C_ecommerce_laravel\resources\views\pages\contact.php
-// Check if layout files should be included
 $include_header = true;
 $include_footer = true;
 
@@ -8,7 +6,6 @@ if (isset($include_header) && $include_header) {
     include_once(resource_path('views/layouts/header.php'));
 }
 
-// Process form submission if available
 $form_submitted = false;
 $form_success = false;
 $form_errors = [];
@@ -16,7 +13,6 @@ $form_errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
     $form_submitted = true;
     
-    // Simple validation
     if (empty($_POST['name'])) {
         $form_errors[] = 'Please enter your name';
     }
@@ -29,11 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
         $form_errors[] = 'Please enter your message';
     }
     
-    // If no errors, process the form (this would typically send an email)
     if (empty($form_errors)) {
         $form_success = true;
-        // In a real application, you would send the email here
-        // mail($_POST['email'], 'Contact Form: ' . $_POST['subject'], $_POST['message']);
+      
     }
 }
 ?>

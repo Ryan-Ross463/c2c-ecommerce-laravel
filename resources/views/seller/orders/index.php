@@ -1,10 +1,7 @@
 <?php
-// filepath: c:\xampp\htdocs\c2c_ecommerce\C2C_ecommerce_laravel\resources\views\seller\orders\index.php
-
 $page_title = 'Seller Orders';
 include(resource_path('views/layouts/seller_dashboard_header.php'));
 
-// Add breadcrumbs
 $breadcrumbs = [
     'Orders' => false
 ];

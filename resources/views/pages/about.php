@@ -1,6 +1,4 @@
 <?php
-// filepath: c:\xampp\htdocs\c2c_ecommerce\C2C_ecommerce_laravel\resources\views\pages\about.php
-// Check if layout files should be included
 $include_header = true;
 $include_footer = true;
 
