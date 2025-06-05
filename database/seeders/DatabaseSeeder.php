@@ -30,7 +30,8 @@ class DatabaseSeeder extends Seeder
         // Run our seeders
         $this->call([
             RolesSeeder::class,
-            CategoriesSeeder::class
+            CategoriesSeeder::class,
+            AdminUserSeeder::class
         ]);
         
         // Create a test admin user

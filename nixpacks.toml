@@ -1,0 +1,13 @@
+[phases.setup]
+nixPkgs = ['php82', 'php82Packages.composer', 'php82Extensions.pdo', 'php82Extensions.pdo_mysql']
+
+[phases.build]
+cmds = [
+    'composer install --no-dev --optimize-autoloader'
+]
+
+[phases.start]
+cmd = 'php artisan config:clear && php artisan cache:clear && php artisan config:cache && php artisan migrate --force && php -S 0.0.0.0:$PORT router.php'
+
+[variables]
+APP_URL = "https://c2c-ecommerce-laravel-production-7647.up.railway.app"
