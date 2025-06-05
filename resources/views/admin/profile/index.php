@@ -1,7 +1,6 @@
 <?php
 include(resource_path('views/layouts/admin_header.php'));
 
-// Get admin data
 $admin = auth()->user();
 $admin_stats = [
     'total_users' => DB::table('users')->count(),
@@ -22,7 +21,6 @@ $admin_stats = [
         </a>
     </div><div class="profile-container">
         <div class="row">
-            <!-- Success/Error Messages -->
             <?php if (session('success')): ?>
                 <div class="col-12 mb-3">
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -42,7 +40,6 @@ $admin_stats = [
                     </div>
                 </div>
             <?php endif; ?>
-            <!-- Admin Info Card -->
             <div class="col-lg-4">
                 <div class="profile-card">
                     <div class="profile-header">                        <div class="profile-avatar">                            <?php if (!empty($admin->profile_image)): ?>
@@ -84,7 +81,6 @@ $admin_stats = [
                 </div>
             </div>
 
-            <!-- Profile Details -->
             <div class="col-lg-8">
                 <div class="profile-details">
                     <div class="section-header">
@@ -142,7 +138,6 @@ $admin_stats = [
                         </div>
                     </form>
 
-                    <!-- Change Password Section -->
                     <div class="section-divider"></div>
                     <div class="section-header">
                         <h3>Security Settings</h3>

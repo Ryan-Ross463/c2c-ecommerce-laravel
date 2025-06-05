@@ -1,60 +1,91 @@
-    </div> <!-- Close admin-main-content -->
-    
-    <footer class="admin-footer">
+</div>    <footer class="admin-footer">
         <div class="admin-footer-content">
-            <div class="admin-footer-left">
-                <div class="admin-footer-copy">
-                    &copy; <?php echo date('Y'); ?> C2C E-commerce Platform. All rights reserved.
-                </div>
+            <div class="admin-footer-copyright">
+                &copy; <?php echo date('Y'); ?> C2C E-commerce Platform. All rights reserved.
             </div>
-            <div class="admin-footer-right">
-                <a href="<?php echo my_url('/'); ?>" target="_blank">
-                    <i class="fas fa-globe"></i> View Site
-                </a>
-                <a href="<?php echo my_url('/admin/help'); ?>">
-                    <i class="fas fa-question-circle"></i> Help
-                </a>
-                <a href="<?php echo my_url('/admin/support'); ?>">
-                    <i class="fas fa-headset"></i> Support
-                </a>
+            <div class="admin-footer-links">
+                <a href="<?php echo my_url('/admin'); ?>">Dashboard</a>
+                <span class="footer-separator">|</span>
+                <a href="<?php echo my_url('/admin/reports'); ?>">Reports</a>
+                <span class="footer-separator">|</span>
+                <a href="<?php echo my_url('/admin/profile'); ?>">Profile</a>
             </div>
         </div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        
-            const dropdownToggles = document.querySelectorAll('.admin-dropdown-toggle');
-            
-            dropdownToggles.forEach(toggle => {
-                toggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const dropdown = this.closest('.admin-dropdown');
-                    dropdown.classList.toggle('active');
-                    
-                    dropdownToggles.forEach(otherToggle => {
-                        if (otherToggle !== toggle) {
-                            otherToggle.closest('.admin-dropdown').classList.remove('active');
-                        }
-                    });
-                });
-            });
-            
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.admin-dropdown')) {
-                    dropdownToggles.forEach(toggle => {
-                        toggle.closest('.admin-dropdown').classList.remove('active');
-                    });
-                }
-            });
-        });
-    </script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <style>
+        .admin-footer {
+            background-color: #34495e !important;
+            color: #ecf0f1 !important;
+            padding: 1rem 0 !important;
+            margin-top: auto !important;
+            border-top: 1px solid #2c3e50 !important;
+        }
 
-<!-- Emergency Modal Fix Script -->
+        .admin-footer-content {
+            max-width: 1200px !important;
+            margin: 0 auto !important;
+            padding: 0 1rem !important;
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+        }
+
+        .admin-footer-copyright {
+            font-size: 0.9rem !important;
+            color: #bdc3c7 !important;
+        }
+
+        .admin-footer-links {
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.5rem !important;
+        }
+
+        .admin-footer-links a {
+            color: #ecf0f1 !important;
+            text-decoration: none !important;
+            font-size: 0.9rem !important;
+            transition: color 0.3s ease !important;
+        }
+
+        .admin-footer-links a:hover {
+            color: #3498db !important;
+        }
+
+        .footer-separator {
+            color: #7f8c8d !important;
+            font-size: 0.8rem !important;
+        }
+
+        /* Mobile responsive footer */
+        @media (max-width: 768px) {
+            .admin-footer-content {
+                flex-direction: column !important;
+                text-align: center !important;
+                gap: 0.5rem !important;
+            }
+
+            .admin-footer-links {
+                font-size: 0.8rem !important;
+            }
+        }
+
+        /* Ensure body has proper layout for sticky footer */
+        body.admin-body {
+            display: flex !important;
+            flex-direction: column !important;
+            min-height: 100vh !important;
+        }
+
+        .admin-main-content {
+            flex: 1 !important;
+        }
+    </style>    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
 <script>
-// Emergency Modal Fix - Global handler for stuck modals
 (function() {
     let emergencyFixApplied = false;
     
@@ -64,19 +95,16 @@
         
         console.log('Emergency Modal Fix: Cleaning up stuck modals...');
         
-        // Remove all modal backdrops
         document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
             backdrop.remove();
         });
         
-        // Hide all modals properly
         document.querySelectorAll('.modal').forEach(modal => {
             modal.classList.remove('show');
             modal.style.display = 'none';
             modal.setAttribute('aria-hidden', 'true');
             modal.removeAttribute('aria-modal');
             
-            // Dispose Bootstrap modal instances
             if (typeof bootstrap !== 'undefined') {
                 const instance = bootstrap.Modal.getInstance(modal);
                 if (instance) {
@@ -85,19 +113,16 @@
             }
         });
         
-        // Restore body
         document.body.classList.remove('modal-open');
         document.body.style.overflow = '';
         document.body.style.paddingRight = '';
         
-        // Force enable all interactions
         document.querySelectorAll('*').forEach(element => {
             if (element.style.pointerEvents === 'none') {
                 element.style.pointerEvents = '';
             }
         });
         
-        // Add emergency CSS
         const emergencyStyle = document.createElement('style');
         emergencyStyle.id = 'emergency-modal-fix';
         emergencyStyle.textContent = `
@@ -118,7 +143,6 @@
         console.log('Emergency Modal Fix: Complete!');
     }
     
-    // Auto-detect stuck modals
     function detectStuckModal() {
         const backdrop = document.querySelector('.modal-backdrop');
         const openModal = document.querySelector('.modal.show');
@@ -130,10 +154,8 @@
         }
     }
     
-    // Run detection periodically
     setInterval(detectStuckModal, 2000);
     
-    // Add emergency hotkey (Ctrl+Shift+F)
     document.addEventListener('keydown', function(e) {
         if (e.ctrlKey && e.shiftKey && e.key === 'F') {
             e.preventDefault();
@@ -142,7 +164,6 @@
         }
     });
     
-    // Add double-click on backdrop to force close
     document.addEventListener('dblclick', function(e) {
         if (e.target.classList.contains('modal-backdrop')) {
             console.log('Double-click on backdrop detected - applying emergency fix...');
@@ -154,7 +175,6 @@
 })();
 </script>
 
-<!-- Delete User Confirmation Modal -->
 <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

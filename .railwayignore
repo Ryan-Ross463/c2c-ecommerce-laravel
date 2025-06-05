@@ -4,5 +4,3 @@ node_modules/
 vite.config.js
 *.config.js
 *.config.ts
-Dockerfile
-Dockerfile.*

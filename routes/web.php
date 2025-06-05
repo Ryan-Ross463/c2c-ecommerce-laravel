@@ -8,7 +8,6 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use Illuminate\Support\Facades\Redirect;
 
-// Health check route for Railway
 Route::get('/health', function () {
     return response()->json([
         'status' => 'ok',

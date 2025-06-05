@@ -1,5 +1,4 @@
 <?php
-// Add custom CSS for the registration popup
 $custom_css = isset($custom_css) ? $custom_css : '';
 $custom_css .= '
 <style>
@@ -102,7 +101,6 @@ include(resource_path('views/layouts/header.php'));
 ?>
 
 <?php if(isset($_GET['registration']) && $_GET['registration'] == 'success'): ?>
-<!-- Registration success popup -->
 <div id="windowsPopup">
     <div class="popup-header">
         <div class="header-content">

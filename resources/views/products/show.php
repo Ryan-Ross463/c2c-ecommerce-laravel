@@ -173,7 +173,6 @@ function getProductProp($product, $prop, $default = '') {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Product data
     const productData = {
         productId: <?php echo $product->product_id ?? 0; ?>,
         maxStock: <?php echo $product->stock ?? 0; ?>
@@ -182,7 +181,6 @@ document.addEventListener('DOMContentLoaded', function() {
     window.productData = productData;
 });
 
-// Function to show not implemented message
 function showMessageNotImplemented() {
     alert('This section will be implemented later');
 }

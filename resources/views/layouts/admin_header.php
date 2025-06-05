@@ -67,138 +67,111 @@ try {
 <head>    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="base-url" content="<?php echo $base_url; ?>">
-    <title><?php echo isset($page_title) ? $page_title . " - C2C E-commerce Admin" : "Admin Dashboard - C2C E-commerce"; ?></title><link rel="icon" href="<?php echo $base_url; ?>/assets/images/favicon.ico" type="image/x-icon">     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-      <!-- CRITICAL INLINE CSS - HIGHEST SPECIFICITY -->
+    <title><?php echo isset($page_title) ? $page_title . " - C2C E-commerce Admin" : "Admin Dashboard - C2C E-commerce"; ?></title><link rel="icon" href="<?php echo $base_url; ?>/assets/images/favicon.ico" type="image/x-icon">   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">    
     <style>
-        /* Admin Body Styling */
-        body.admin-body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-            background-color: #f8f9fa !important;
-            color: #333 !important;
-            min-height: 100vh !important;
-            display: flex !important;
-            flex-direction: column !important;
-            margin: 0 !important;
-            padding: 0 !important;
+        /* Admin Header Styles - Mobile First Responsive Design */
+        .admin-body {
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Admin Header Styling */
         .admin-header {
             background-color: #2c3e50 !important;
-            background: #2c3e50 !important;
-            color: #fff !important;
-            height: 60px !important;
+            color: white !important;
+            padding: 0.75rem 1rem !important;
             display: flex !important;
             justify-content: space-between !important;
             align-items: center !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            border: none !important;
-            border-radius: 0 !important;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
             position: sticky !important;
             top: 0 !important;
             z-index: 1000 !important;
-        }
-        
-        .admin-brand {
-            color: #fff !important;
-            padding: 0 20px !important;
-            font-size: 1.3rem !important;
-            font-weight: 700 !important;
-        }
-        
-        .admin-brand a {
-            color: #fff !important;
-            text-decoration: none !important;
-        }
-        
-        .admin-brand a:hover {
-            color: #3498db !important;
-            text-decoration: none !important;
+            width: 100% !important;
+            min-height: 60px !important;
         }
 
-        /* Mobile Menu Toggle */
+        .admin-brand a {
+            color: white !important;
+            text-decoration: none !important;
+            font-size: 1.25rem !important;
+            font-weight: bold !important;
+        }
+
+        .admin-brand a:hover {
+            color: #ecf0f1 !important;
+        }
+
         .admin-menu-toggle {
             display: none !important;
             background: none !important;
             border: none !important;
-            color: #fff !important;
-            font-size: 1.2rem !important;
+            color: white !important;
+            font-size: 1.25rem !important;
             cursor: pointer !important;
-            margin-right: 15px !important;
+            padding: 0.5rem !important;
         }
-        
-        /* Navigation Styling */
+
         .admin-nav {
             display: flex !important;
             align-items: center !important;
-            height: 100% !important;
-            position: relative !important;
-        }
-        
-        .admin-nav > a {
-            color: #ecf0f1 !important;
-            text-decoration: none !important;
-            padding: 0 15px !important;
-            height: 100% !important;
-            display: flex !important;
-            align-items: center !important;
-            transition: background-color 0.3s ease !important;
-        }
-        
-        .admin-nav > a:hover,
-        .admin-nav > a.active {
-            background-color: #34495e !important;
-            color: #fff !important;
-            text-decoration: none !important;
+            gap: 1rem !important;
         }
 
-        /* Dropdown Styling */
+        .admin-nav > a {
+            color: white !important;
+            text-decoration: none !important;
+            padding: 0.5rem 1rem !important;
+            border-radius: 4px !important;
+            transition: background-color 0.3s ease !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.5rem !important;
+        }
+
+        .admin-nav > a:hover {
+            background-color: rgba(255,255,255,0.1) !important;
+            color: white !important;
+        }
+
+        .admin-nav > a.active {
+            background-color: rgba(255,255,255,0.2) !important;
+        }
+
         .admin-dropdown {
             position: relative !important;
-            height: 100% !important;
         }
 
         .admin-dropdown-toggle {
-            color: #ecf0f1 !important;
+            color: white !important;
             text-decoration: none !important;
-            padding: 0 15px !important;
-            height: 60px !important;
+            padding: 0.5rem 1rem !important;
+            border-radius: 4px !important;
+            transition: background-color 0.3s ease !important;
             display: flex !important;
             align-items: center !important;
+            gap: 0.5rem !important;
             cursor: pointer !important;
-            transition: background-color 0.3s ease !important;
-            border: none !important;
-            background: none !important;
         }
 
         .admin-dropdown-toggle:hover {
-            background-color: #34495e !important;
-            color: #fff !important;
-            text-decoration: none !important;
+            background-color: rgba(255,255,255,0.1) !important;
+            color: white !important;
         }
 
-        .admin-dropdown-toggle span {
-            margin-left: 8px !important;
-        }
-
-        .admin-dropdown-toggle i {
-            margin-right: 5px !important;
-        }
-
-        /* Dropdown Container */
         .admin-dropdown-container {
             position: absolute !important;
             top: 100% !important;
             left: 0 !important;
-            background: #fff !important;
+            background: white !important;
             border: 1px solid #ddd !important;
             border-radius: 4px !important;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
             min-width: 200px !important;
-            z-index: 9999 !important;
+            z-index: 10000 !important;
             opacity: 0 !important;
             visibility: hidden !important;
             transform: translateY(-10px) !important;
@@ -212,140 +185,178 @@ try {
         }
 
         .admin-dropdown-content {
-            padding: 8px 0 !important;
+            padding: 0.5rem 0 !important;
         }
 
         .admin-dropdown-content a {
             display: block !important;
-            padding: 10px 16px !important;
+            padding: 0.75rem 1rem !important;
             color: #333 !important;
             text-decoration: none !important;
-            transition: background-color 0.2s ease !important;
-            border: none !important;
-            width: 100% !important;
-            text-align: left !important;
+            transition: background-color 0.3s ease !important;
         }
 
         .admin-dropdown-content a:hover {
             background-color: #f8f9fa !important;
             color: #2c3e50 !important;
-            text-decoration: none !important;
-        }
-
-        .admin-dropdown-content a i {
-            margin-right: 8px !important;
-            width: 16px !important;
-            text-align: center !important;
         }
 
         .admin-dropdown-divider {
             height: 1px !important;
             background-color: #eee !important;
-            margin: 8px 0 !important;
+            margin: 0.5rem 0 !important;
         }
 
-        /* Main Content Area */
         .admin-main-content {
-            flex: 1 !important;
-            padding: 20px !important;
-            background-color: #f8f9fa !important;
+            padding: 2rem 1rem !important;
+            min-height: calc(100vh - 60px) !important;
         }
 
-        /* Admin Footer Styling */
-        .admin-footer {
-            background-color: #34495e !important;
-            color: #ecf0f1 !important;
-            padding: 20px 0 !important;
-            margin-top: auto !important;
-            border-top: 1px solid #2c3e50 !important;
-        }
+        /* Mobile Responsive Styles */
+        @media (max-width: 992px) {
+            .admin-header {
+                flex-wrap: wrap !important;
+                padding: 0.75rem 1rem !important;
+            }
 
-        .admin-footer-content {
-            max-width: 1200px !important;
-            margin: 0 auto !important;
-            padding: 0 20px !important;
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            flex-wrap: wrap !important;
-        }
-
-        .admin-footer-left {
-            flex: 1 !important;
-        }
-
-        .admin-footer-right {
-            display: flex !important;
-            gap: 20px !important;
-        }
-
-        .admin-footer a {
-            color: #bdc3c7 !important;
-            text-decoration: none !important;
-            transition: color 0.3s ease !important;
-        }
-
-        .admin-footer a:hover {
-            color: #3498db !important;
-            text-decoration: none !important;
-        }
-
-        .admin-footer-copy {
-            font-size: 0.9rem !important;
-            color: #95a5a6 !important;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
             .admin-menu-toggle {
                 display: block !important;
+                order: 2 !important;
+            }
+
+            .admin-brand {
+                order: 1 !important;
+                flex: 1 !important;
             }
 
             .admin-nav {
-                position: absolute !important;
-                top: 100% !important;
-                left: 0 !important;
-                right: 0 !important;
-                background-color: #2c3e50 !important;
-                flex-direction: column !important;
-                height: auto !important;
                 display: none !important;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+                width: 100% !important;
+                flex-direction: column !important;
+                background-color: #34495e !important;
+                padding: 1rem 0 !important;
+                margin-top: 0.75rem !important;
+                border-radius: 4px !important;
+                order: 3 !important;
+                gap: 0 !important;
             }
 
             .admin-nav.show {
                 display: flex !important;
+                animation: slideDown 0.3s ease !important;
             }
 
-            .admin-nav > a,
+            .admin-nav > a {
+                width: 100% !important;
+                padding: 0.75rem 1rem !important;
+                border-radius: 0 !important;
+                border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+            }
+
+            .admin-nav > a:last-child {
+                border-bottom: none !important;
+            }
+
+            .admin-dropdown {
+                width: 100% !important;
+            }
+
             .admin-dropdown-toggle {
-                height: 50px !important;
-                border-bottom: 1px solid #34495e !important;
+                width: 100% !important;
+                padding: 0.75rem 1rem !important;
+                border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+                justify-content: space-between !important;
+            }
+
+            .admin-dropdown-toggle::after {
+                content: "▼" !important;
+                font-size: 0.8rem !important;
+                transition: transform 0.3s ease !important;
+            }
+
+            .admin-dropdown.active .admin-dropdown-toggle::after {
+                transform: rotate(180deg) !important;
             }
 
             .admin-dropdown-container {
                 position: static !important;
+                background-color: #2c3e50 !important;
+                border: none !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                width: 100% !important;
+                margin-left: 0 !important;
+                transform: none !important;
                 opacity: 1 !important;
                 visibility: visible !important;
-                transform: none !important;
-                box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1) !important;
-                background-color: #34495e !important;
+                max-height: 0 !important;
+                overflow: hidden !important;
+                transition: max-height 0.3s ease !important;
+            }
+
+            .admin-dropdown.active .admin-dropdown-container {
+                max-height: 300px !important;
             }
 
             .admin-dropdown-content a {
+                padding: 0.75rem 2rem !important;
                 color: #ecf0f1 !important;
-                padding-left: 30px !important;
+                border-bottom: 1px solid rgba(255,255,255,0.05) !important;
             }
 
             .admin-dropdown-content a:hover {
-                background-color: #2c3e50 !important;
-                color: #fff !important;
+                background-color: rgba(255,255,255,0.1) !important;
+                color: white !important;
             }
 
-            .admin-footer-content {
-                flex-direction: column !important;
-                text-align: center !important;
-                gap: 10px !important;
+            .admin-dropdown-divider {
+                background-color: rgba(255,255,255,0.1) !important;
+                margin: 0 !important;
+            }
+
+            .admin-main-content {
+                padding: 1rem !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .admin-brand a {
+                font-size: 1.1rem !important;
+            }
+
+            .admin-main-content {
+                padding: 0.75rem !important;
+            }
+
+            .admin-dropdown-container {
+                min-width: 100% !important;
+            }
+
+            .admin-nav > a {
+                font-size: 0.9rem !important;
+            }
+
+            .admin-dropdown-content a {
+                font-size: 0.9rem !important;
+                padding: 0.5rem 1.5rem !important;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Ensure dropdowns work properly on desktop */
+        @media (min-width: 993px) {
+            .admin-dropdown-container {
+                position: absolute !important;
             }
         }
     </style>
@@ -354,65 +365,8 @@ try {
     <link rel="stylesheet" href="<?php echo asset('assets/css/admin_dashboard.css'); ?>">
     <?php endif; ?>
     
-    <?php if (isset($custom_css)) echo $custom_css; ?> <script>
-        document.addEventListener('DOMContentLoaded', function() {
-           
-            const menuToggle = document.getElementById('adminMenuToggle');
-            const adminNav = document.getElementById('adminNav');
-            
-            if (menuToggle && adminNav) {
-                menuToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    adminNav.classList.toggle('show');
-                });
-            }
-            
-            const dropdownToggles = document.querySelectorAll('.admin-dropdown-toggle');
-            
-            dropdownToggles.forEach(function(toggle) {
-                toggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    const parentDropdown = this.closest('.admin-dropdown');
-                    
-                    document.querySelectorAll('.admin-dropdown').forEach(function(dropdown) {
-                        if (dropdown !== parentDropdown) {
-                            dropdown.classList.remove('active');
-                            const container = dropdown.querySelector('.admin-dropdown-container');
-                            if (container) {
-                                container.style.zIndex = '';
-                            }
-                        }
-                    });
-                    
-                    parentDropdown.classList.toggle('active');
-                    
-                    const container = parentDropdown.querySelector('.admin-dropdown-container');
-                    if (container) {
-                        if (parentDropdown.classList.contains('active')) {
-                            container.style.zIndex = '10000';
-                            container.style.position = 'absolute';
-                        } else {
-                            container.style.zIndex = '';
-                        }
-                    }
-                });
-            });
-            
-            document.addEventListener('click', function() {
-                document.querySelectorAll('.admin-dropdown').forEach(function(dropdown) {
-                    dropdown.classList.remove('active');
-                });
-            });
-            
-            document.querySelectorAll('.admin-dropdown-container').forEach(function(container) {
-                container.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
-            });
-        });
-    </script>
+    <?php if (isset($custom_css)) echo $custom_css; ?>    <!-- Load external JavaScript file for better organization -->
+    <script src="<?php echo asset('assets/js/admin_header.js'); ?>"></script>
 </head>
 <body class="admin-body">    <header class="admin-header">
         <div class="admin-brand">
@@ -422,7 +376,7 @@ try {
             <i class="fas fa-bars"></i>
         </button>
         <nav class="admin-nav" id="adminNav">
-            <a href="<?php echo my_url('/admin'); ?>" <?php echo request()->is('admin') ? 'class="active"' : ''; ?>>
+            <a href="<?php echo my_url('/admin'); ?>" <?php echo (isset($_GET['page']) && $_GET['page'] == 'dashboard') || basename($_SERVER['REQUEST_URI']) == 'admin' ? 'class="active"' : ''; ?>>
                 <i class="fas fa-tachometer-alt"></i> Dashboard
             </a>
             <div class="admin-dropdown">
@@ -499,60 +453,6 @@ try {
                         </form>
                     </div>
                 </div>
-            </div>
-        </nav>
-    </header>
+            </div>    </header>
     
-    <script>       
-        (function() {
-           
-            var allToggles = document.querySelectorAll('.admin-dropdown-toggle');
-            
-            for (var i = 0; i < allToggles.length; i++) {
-                allToggles[i].onclick = function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    var parentDropdown = this.closest('.admin-dropdown');
-                    var isActive = parentDropdown.classList.contains('active');
-                    
-                    var allDropdowns = document.querySelectorAll('.admin-dropdown');
-                    for (var j = 0; j < allDropdowns.length; j++) {
-                        allDropdowns[j].classList.remove('active');
-                        var container = allDropdowns[j].querySelector('.admin-dropdown-container');
-                        if (container) {
-                            container.style.zIndex = '';
-                        }
-                    }
-                    
-                    if (!isActive) {
-                        parentDropdown.classList.add('active');
-                        var container = parentDropdown.querySelector('.admin-dropdown-container');
-                        if (container) {
-                            container.style.zIndex = '10000';
-                            container.style.position = 'absolute';
-                        }
-                    }
-                    
-                    return false;
-                };
-            }
-           
-            document.onclick = function(e) {
-                if (!e.target.closest('.admin-dropdown')) {
-                    var allDropdowns = document.querySelectorAll('.admin-dropdown');
-                    for (var j = 0; j < allDropdowns.length; j++) {
-                        allDropdowns[j].classList.remove('active');
-                    }
-                }
-            };
-            
-            var allContainers = document.querySelectorAll('.admin-dropdown-container');
-            for (var k = 0; k < allContainers.length; k++) {
-                allContainers[k].onclick = function(e) {
-                    e.stopPropagation();
-                };
-            }
-        })();
-    </script>
     <div class="admin-main-content">

@@ -4,13 +4,11 @@ $breadcrumbs = [
 ];
 include(resource_path('views/layouts/seller_dashboard_header.php'));
 
-// Get seller data
 $seller = auth()->user();
 $seller_stats = [
     'total_products' => DB::table('products')->where('seller_id', $seller->user_id)->count(),
     'active_products' => DB::table('products')->where('seller_id', $seller->user_id)->where('status', 'active')->count(),
-    // Fix: orders table doesn't have seller_id, it uses user_id for the buyer
-    // We need to get orders for products that belong to this seller
+   
     'total_sales' => DB::table('order_items')
         ->join('products', 'order_items.product_id', '=', 'products.product_id')
         ->where('products.seller_id', $seller->user_id)
@@ -21,7 +19,6 @@ $seller_stats = [
         ->sum(DB::raw('order_items.quantity * order_items.price')) ?? 0
 ];
 
-// Get recent orders for products sold by this seller
 $recent_orders = DB::table('order_items')
     ->join('products', 'order_items.product_id', '=', 'products.product_id')
     ->join('orders', 'order_items.order_id', '=', 'orders.order_id')
@@ -37,7 +34,6 @@ $recent_orders = DB::table('order_items')
 
 <div class="profile-container">
     <div class="row">
-        <!-- Success/Error Messages -->
         <?php if (session('success')): ?>
             <div class="col-12 mb-3">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -57,7 +53,6 @@ $recent_orders = DB::table('order_items')
                 </div>
             </div>
         <?php endif; ?>
-        <!-- Profile Info Card -->
         <div class="col-lg-4">
             <div class="profile-card">
                 <div class="profile-header">                    <div class="profile-avatar">                        <?php if (!empty($seller->profile_image)): ?>
@@ -96,8 +91,6 @@ $recent_orders = DB::table('order_items')
                 </div>
             </div>
         </div>
-
-        <!-- Profile Details -->
         <div class="col-lg-8">
             <div class="profile-details">
                 <div class="section-header">
@@ -161,7 +154,6 @@ $recent_orders = DB::table('order_items')
                     </div>
                 </form>
 
-                <!-- Change Password Section -->
                 <div class="section-divider"></div>
                 <div class="section-header">
                     <h3>Change Password</h3>
@@ -194,7 +186,6 @@ $recent_orders = DB::table('order_items')
                     <button type="submit" class="btn btn-warning">Change Password</button>
                 </form>
 
-                <!-- Recent Sales Section -->
                 <div class="section-divider"></div>
                 <div class="section-header">
                     <h3>Recent Sales</h3>
@@ -255,7 +246,6 @@ function cancelEdit() {
     location.reload();
 }
 
-// Password confirmation validation
 document.getElementById('password-form').addEventListener('submit', function(e) {
     const newPassword = document.getElementById('new_password').value;
     const confirmPassword = document.getElementById('confirm_password').value;

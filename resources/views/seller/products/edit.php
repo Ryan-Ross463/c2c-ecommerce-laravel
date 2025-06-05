@@ -23,7 +23,6 @@ if (!$product || $product->seller_id != auth()->user()->user_id) {
 
 $categories = DB::table('categories')->get();
 
-// Get product images from product_images table
 $product_images = DB::table('product_images')
     ->where('product_id', $product_id)
     ->orderBy('sort_order')

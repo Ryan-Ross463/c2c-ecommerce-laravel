@@ -20,12 +20,10 @@ yarn-error.log
 /.idea
 /.nova
 
-# Temporary backup files for Railway deployment
 *.bak
 /.vscode
 /.zed
 
-# OS generated files
 .DS_Store
 .DS_Store?
 ._*
@@ -34,14 +32,12 @@ yarn-error.log
 ehthumbs.db
 Thumbs.db
 
-# Local development files
 *.log
 *.sql
 *.sqlite
 /storage/logs/*
 /bootstrap/cache/*
 
-# XAMPP specific files (don't include these)
 /c2c_ecommerce
 check_columns.php
 debug_images.php
@@ -49,21 +45,16 @@ debug_products.php
 fix_images.php
 test_profile_picture.php
 
-# Database backups
 database_backup_*.sql
 
-# Temporary files
 *.tmp
 *.temp
 
-# Railway specific
 .env.production.local
 
-# Docker development
 docker-compose.override.yml
 .docker/
 
-# Old deployment files (cleanup)
 nixpacks.toml.backup
 Procfile.backup
 start.sh.backup

@@ -1,8 +1,6 @@
 <?php 
 include(resource_path('views/layouts/admin_header.php'));
 
-// Using centralized error handling from ViewHelpers
-
 function getUserProperty($user, $property, $default = '') {
     return isset($user) && is_object($user) && isset($user->$property) ? $user->$property : $default;
 }
