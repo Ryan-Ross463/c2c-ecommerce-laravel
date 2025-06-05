@@ -95,6 +95,46 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
     Route::get('/reports/user_activity', [\App\Http\Controllers\Admin\ReportController::class, 'userActivity'])->name('admin.reports.activity');
 });
 
+// Temporary route to create admin user on Railway - REMOVE AFTER USE
+Route::get('/create-admin-user-once', function () {
+    try {
+        // Check if admin role exists, create if not
+        $adminRole = DB::table('roles')->where('role_id', 3)->first();
+        if (!$adminRole) {
+            DB::table('roles')->insert([
+                'role_id' => 3,
+                'name' => 'admin',
+                'description' => 'Administrator with full access',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+        
+        // Check if admin user already exists
+        $existingAdmin = DB::table('users')->where('email', 'admin@c2cecommerce.com')->first();
+        
+        if (!$existingAdmin) {
+            DB::table('users')->insert([
+                'name' => 'System Administrator',
+                'email' => 'admin@c2cecommerce.com',
+                'password' => Hash::make('Admin123!@#'),
+                'role_id' => 3,
+                'account_type' => 'admin',
+                'status' => 'active',
+                'email_verified_at' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            
+            return response('<h1>✅ SUCCESS!</h1><p>Admin user created successfully!</p><p><strong>Email:</strong> admin@c2cecommerce.com</p><p><strong>Password:</strong> Admin123!@#</p><p><a href="/admin/login">Go to Admin Login</a></p><p style="color:red;"><strong>IMPORTANT:</strong> Remove this route from web.php after use!</p>');
+        } else {
+            return response('<h1>ℹ️ Admin Already Exists</h1><p>Admin user already exists in database.</p><p><strong>Email:</strong> admin@c2cecommerce.com</p><p><strong>Password:</strong> Admin123!@#</p><p><a href="/admin/login">Go to Admin Login</a></p>');
+        }
+    } catch (Exception $e) {
+        return response('<h1>❌ Error</h1><p>Error creating admin user: ' . $e->getMessage() . '</p>');
+    }
+});
+
 Route::fallback(function () {
     return response("Route not found. URL: " . request()->url() . 
                    "<br>Path: " . request()->path() . 
