@@ -6,3 +6,5 @@ startCommand = "php artisan config:clear && php artisan cache:clear && php artis
 
 [variables]
 APP_URL = "https://c2c-ecommerce-laravel-production-7647.up.railway.app"
+RAILWAY_ENVIRONMENT = "production"
+APP_SUBPATH = ""

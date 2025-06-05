@@ -16,16 +16,31 @@ if ($uri !== '/' && file_exists(__DIR__.'/public'.$uri)) {
 // and go directly to Laravel's standard public/index.php
 // This avoids URL duplication issues
 
-// Set up clean server variables for Laravel
+// Force correct server variables for Railway deployment
 $_SERVER['SCRIPT_NAME'] = '/index.php';
 $_SERVER['SCRIPT_FILENAME'] = __DIR__.'/public/index.php';
 
-// Ensure APP_URL is correctly set in environment
-if (!empty($_ENV['RAILWAY_PUBLIC_DOMAIN']) || !empty($_SERVER['RAILWAY_PUBLIC_DOMAIN'])) {
-    $domain = $_ENV['RAILWAY_PUBLIC_DOMAIN'] ?? $_SERVER['RAILWAY_PUBLIC_DOMAIN'];
+// Ensure clean REQUEST_URI (remove any domain duplication)
+if (isset($_SERVER['REQUEST_URI'])) {
+    $requestUri = $_SERVER['REQUEST_URI'];
+    // Remove any domain name that might have gotten into the path
+    $domain = $_SERVER['HTTP_HOST'] ?? '';
+    if ($domain && strpos($requestUri, $domain) !== false) {
+        $requestUri = str_replace('/' . $domain, '', $requestUri);
+        $_SERVER['REQUEST_URI'] = $requestUri;
+    }
+}
+
+// Set up environment variables for Railway
+if (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'railway.app') !== false) {
+    $domain = $_SERVER['HTTP_HOST'];
     $_ENV['APP_URL'] = 'https://' . $domain;
     $_SERVER['APP_URL'] = 'https://' . $domain;
     putenv('APP_URL=https://' . $domain);
+    
+    // Force HTTPS
+    $_SERVER['HTTPS'] = 'on';
+    $_SERVER['REQUEST_SCHEME'] = 'https';
 }
 
 // Load the standard Laravel public/index.php

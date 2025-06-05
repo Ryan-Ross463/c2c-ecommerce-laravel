@@ -472,7 +472,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const metaBaseUrl = document.querySelector('meta[name="base-url"]')?.getAttribute('content');
         if (metaBaseUrl) return metaBaseUrl;
     
-        return window.location.origin + '/c2c_ecommerce/C2C_ecommerce_laravel/public';
+        // Check if we're in production (Railway) or local development
+        const isProduction = window.location.hostname.includes('railway.app') || 
+                             window.location.hostname.includes('up.railway.app');
+        
+        if (isProduction) {
+            // In production, use the root domain
+            return window.location.origin;
+        } else {
+            // In local development, use the subdirectory
+            return window.location.origin + '/c2c_ecommerce/C2C_ecommerce_laravel/public';
+        }
     }
 
     if (quickEditButtons.length > 0 && quickEditModal) {
