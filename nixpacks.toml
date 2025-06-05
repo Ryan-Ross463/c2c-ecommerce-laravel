@@ -1,5 +1,4 @@
-[providers]
-php = "php82"
+providers = ["php"]
 
 [phases.setup]
 nixPkgs = ['php82', 'php82Packages.composer', 'php82Extensions.pdo', 'php82Extensions.pdo_mysql', 'php82Extensions.gd', 'php82Extensions.mbstring', 'php82Extensions.openssl', 'php82Extensions.curl']
@@ -7,13 +6,11 @@ nixPkgs = ['php82', 'php82Packages.composer', 'php82Extensions.pdo', 'php82Exten
 [phases.build]
 cmds = [
     'composer install --no-dev --optimize-autoloader --ignore-platform-reqs',
-    'chmod +x start.sh',
-    'chmod +x debug_start.sh',
-    'chmod +x minimal_start.sh'
+    'chmod +x start.sh'
 ]
 
 [phases.start]
-cmd = './minimal_start.sh'
+cmd = './start.sh'
 
 [variables]
 APP_URL = "https://c2c-ecommerce-laravel-production-7647.up.railway.app"
