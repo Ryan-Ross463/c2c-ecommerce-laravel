@@ -8,8 +8,38 @@ $uri = urldecode(
 );
 
 // If the request is for a static file in the public directory, serve it directly
-if ($uri !== '/' && file_exists(__DIR__.'/public'.$uri)) {
-    return false;
+if ($uri !== '/') {
+    $publicFile = __DIR__.'/public'.$uri;
+    if (file_exists($publicFile)) {
+        // Set appropriate content type for different file types
+        $extension = pathinfo($publicFile, PATHINFO_EXTENSION);
+        switch ($extension) {
+            case 'css':
+                header('Content-Type: text/css');
+                break;
+            case 'js':
+                header('Content-Type: application/javascript');
+                break;
+            case 'png':
+                header('Content-Type: image/png');
+                break;
+            case 'jpg':
+            case 'jpeg':
+                header('Content-Type: image/jpeg');
+                break;
+            case 'gif':
+                header('Content-Type: image/gif');
+                break;
+            case 'svg':
+                header('Content-Type: image/svg+xml');
+                break;
+            case 'ico':
+                header('Content-Type: image/x-icon');
+                break;
+        }
+        readfile($publicFile);
+        return;
+    }
 }
 
 // For production on Railway, bypass the custom root index.php
