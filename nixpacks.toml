@@ -4,11 +4,12 @@ nixPkgs = ['php82', 'php82Packages.composer', 'php82Extensions.pdo', 'php82Exten
 [phases.build]
 cmds = [
     'composer install --no-dev --optimize-autoloader --ignore-platform-reqs',
-    'chmod +x start.sh'
+    'chmod +x start.sh',
+    'chmod +x debug_start.sh'
 ]
 
 [phases.start]
-cmd = './start.sh'
+cmd = './debug_start.sh'
 
 [variables]
 APP_URL = "https://c2c-ecommerce-laravel-production-7647.up.railway.app"
