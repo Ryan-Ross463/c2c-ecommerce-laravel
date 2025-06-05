@@ -26,17 +26,18 @@ if (!function_exists('asset')) {
         // For Railway deployment, ensure proper HTTPS URL
         if (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'railway.app') !== false) {
             $baseUrl = 'https://' . $_SERVER['HTTP_HOST'];
+            // Railway serves assets directly from root, no 'public/' prefix needed
+            return $baseUrl . '/' . ltrim($path, '/');
         } else {
             $baseUrl = config('app.url', 'http://localhost');
             // Ensure we have a protocol
             if (!preg_match('/^https?:\/\//', $baseUrl)) {
                 $baseUrl = 'https://' . ltrim($baseUrl, '/');
             }
+            // For local development, prepend 'public/' for the correct path
+            $publicPath = 'public/' . ltrim($path, '/');
+            return $baseUrl . '/' . $publicPath;
         }
-        
-        // For Laravel assets, add 'public/' prefix for Railway deployment
-        $publicPath = 'public/' . ltrim($path, '/');
-        return $baseUrl . '/' . $publicPath;
     }
 }
 
