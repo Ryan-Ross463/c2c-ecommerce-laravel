@@ -2,4 +2,7 @@
 builder = "nixpacks"
 
 [deploy]
-startCommand = "php artisan config:cache && php artisan migrate --force && php -S 0.0.0.0:$PORT router.php"
+startCommand = "php artisan config:clear && php artisan cache:clear && php artisan config:cache && php artisan migrate --force && php -S 0.0.0.0:$PORT router.php"
+
+[variables]
+APP_URL = "https://c2c-ecommerce-laravel-production-7647.up.railway.app"
