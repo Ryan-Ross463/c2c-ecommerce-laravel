@@ -56,7 +56,10 @@ if (!function_exists('asset')) {
                 $baseUrl = 'https://' . ltrim($baseUrl, '/');
             }
         }
-        return $baseUrl . '/' . ltrim($path, '/');
+        
+        // For Laravel assets, prepend 'public/' for the correct path
+        $publicPath = 'public/' . ltrim($path, '/');
+        return $baseUrl . '/' . $publicPath;
     }
 }
 
