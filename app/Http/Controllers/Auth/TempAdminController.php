@@ -11,12 +11,10 @@ class TempAdminController extends Controller
 {
     public function createTempAdmin(Request $request)
     {
-        // Security check - only allow this on Railway or if specifically enabled
         if (!$this->isRailwayEnvironment() && !config('app.allow_temp_admin', false)) {
             abort(404, 'Not found');
         }
         
-        // Check if admin already exists
         $existingAdmin = DB::table('users')->where('role_id', 3)->first();
         
         if ($existingAdmin) {
@@ -26,7 +24,6 @@ class TempAdminController extends Controller
             ]);
         }
         
-        // Ensure admin role exists
         $adminRole = DB::table('roles')->where('role_id', 3)->first();
         
         if (!$adminRole) {
@@ -39,7 +36,6 @@ class TempAdminController extends Controller
             ]);
         }
         
-        // Create admin user
         $adminData = [
             'name' => 'Railway Admin',
             'email' => 'admin@railway.app',

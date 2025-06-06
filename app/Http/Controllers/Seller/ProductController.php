@@ -193,7 +193,6 @@ class ProductController extends Controller
                 mkdir($path, 0777, true);
             }
 
-            // Simple file move without image processing
             $image->move($path, $filename);
 
             return response()->json([
@@ -275,7 +274,7 @@ class ProductController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }        try {
-            // Update product fields            $product->name = $request->name;
+           
             $product->description = $request->description;
             $product->price = $request->price;
             $product->stock = $request->quantity;
@@ -285,21 +284,18 @@ class ProductController extends Controller
             
             $product->save();            if ($request->has('remove_images') && is_array($request->remove_images)) {
                 foreach ($request->remove_images as $filename) {
-                    // Skip empty filenames
+                  
                     if (empty($filename) || trim($filename) === '') {
                         continue;
                     }
                     
-                    // Sanitize filename to prevent path traversal
                     $filename = basename($filename);
                     
                     $path = public_path('uploads/products/' . $filename);
                     
-                    // Only try to delete if it's actually a file
                     if (file_exists($path) && is_file($path)) {
                         unlink($path);
                     }
-                      // Remove from product_images table - no need to update products.image column
                     
                     ProductImage::where('product_id', $product->product_id)
                                 ->where('image', $filename)
@@ -315,8 +311,7 @@ class ProductController extends Controller
                     if (!file_exists($path)) {
                         mkdir($path, 0777, true);
                     }
-                    
-                    // Simple file move without image processing
+                  
                     $image->move($path, $filename);
 
                     $uploadedImages[] = $filename;
@@ -329,7 +324,6 @@ class ProductController extends Controller
                     $productImage->save();
                 }
                   if (!empty($uploadedImages)) {
-                    // Set the first uploaded image as main image if no main image exists
                     $hasMainImage = ProductImage::where('product_id', $product->product_id)
                                                 ->where('is_main', 1)
                                                 ->exists();
@@ -362,7 +356,6 @@ class ProductController extends Controller
             return redirect()->route('seller.products.index')
                 ->with('error', 'You do not have permission to delete this product.');
         }        try {
-            // Delete product images from filesystem
             foreach ($product->images as $image) {
                 $path = public_path('uploads/products/' . $image->image);
                 

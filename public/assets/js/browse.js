@@ -378,16 +378,13 @@ function showToast(message) {
 }
 
 function my_url(path = '') {
-    // Check if we're in production (Railway) or local development
     const isProduction = window.location.hostname.includes('railway.app') || 
                          window.location.hostname.includes('up.railway.app');
     
     let baseUrl;
     if (isProduction) {
-        // In production, use the root domain
         baseUrl = window.location.origin;
     } else {
-        // In local development, use the subdirectory
         baseUrl = window.location.origin + '/c2c_ecommerce/C2C_ecommerce_laravel';
     }
     

@@ -67,11 +67,13 @@ try {
 <head>    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="base-url" content="<?php echo $base_url; ?>">
-    <title><?php echo isset($page_title) ? $page_title . " - C2C E-commerce Admin" : "Admin Dashboard - C2C E-commerce"; ?></title><link rel="icon" href="<?php echo $base_url; ?>/assets/images/favicon.ico" type="image/x-icon">   
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">    
+    <title><?php echo isset($page_title) ? $page_title . " - C2C E-commerce Admin" : "Admin Dashboard - C2C E-commerce"; ?></title><link rel="icon" href="<?php echo $base_url; ?>/assets/images/favicon.ico" type="image/x-icon">     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="<?php echo my_url('/build/assets/app-CMxZnDx3.css'); ?>">
+    <script type="module" src="<?php echo my_url('/build/assets/app-T1DpEqax.js'); ?>"></script>
+    
     <style>
-        /* Admin Header Styles - Mobile First Responsive Design */
         .admin-body {
             margin: 0;
             padding: 0;
@@ -212,7 +214,6 @@ try {
             min-height: calc(100vh - 60px) !important;
         }
 
-        /* Mobile Responsive Styles */
         @media (max-width: 992px) {
             .admin-header {
                 flex-wrap: wrap !important;
@@ -353,7 +354,6 @@ try {
             }
         }
 
-        /* Ensure dropdowns work properly on desktop */
         @media (min-width: 993px) {
             .admin-dropdown-container {
                 position: absolute !important;
@@ -366,12 +366,10 @@ try {
     <?php endif; ?>
       <?php if (isset($custom_css)) echo $custom_css; ?>
     
-    <!-- Essential JavaScript for dropdown functionality -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Admin header JavaScript loading...');
             
-            // Menu toggle functionality
             const menuToggle = document.getElementById('adminMenuToggle');
             const adminNav = document.getElementById('adminNav');
             
@@ -384,7 +382,6 @@ try {
                 });
             }
 
-            // Dropdown functionality
             const dropdownToggles = document.querySelectorAll('.admin-dropdown-toggle');
             console.log('Found dropdown toggles:', dropdownToggles.length);
             
@@ -399,14 +396,12 @@ try {
                     
                     console.log('Dropdown clicked:', index + 1, 'Currently active:', isCurrentlyActive);
                     
-                    // Close all other dropdowns
                     document.querySelectorAll('.admin-dropdown').forEach(function(dropdown) {
                         if (dropdown !== parentDropdown) {
                             dropdown.classList.remove('active');
                         }
                     });
                     
-                    // Toggle current dropdown
                     if (!isCurrentlyActive) {
                         parentDropdown.classList.add('active');
                         console.log('Dropdown opened:', index + 1);
@@ -417,9 +412,7 @@ try {
                 });
             });
 
-            // Close dropdowns and mobile menu when clicking outside
             document.addEventListener('click', function(e) {
-                // Don't close if clicking on modal-related elements
                 if (e.target.closest('.modal') || 
                     e.target.closest('[data-bs-toggle="modal"]') || 
                     e.target.closest('.delete-user-btn') || 
@@ -427,22 +420,19 @@ try {
                     return;
                 }
                 
-                // Close mobile menu if clicking outside nav area
                 if (!e.target.closest('.admin-nav') && !e.target.closest('#adminMenuToggle')) {
                     if (window.innerWidth <= 992) {
                         adminNav.classList.remove('show');
                     }
                 }
                 
-                // Close all dropdowns if clicking outside
                 if (!e.target.closest('.admin-dropdown')) {
                     document.querySelectorAll('.admin-dropdown').forEach(function(dropdown) {
                         dropdown.classList.remove('active');
                     });
                 }
             });
-
-            // Handle responsive behavior
+            
             function handleResponsive() {
                 if (window.innerWidth > 992) {
                     adminNav.classList.remove('show');
@@ -458,7 +448,6 @@ try {
         });
     </script>
     
-    <!-- Load external JavaScript file as backup -->
     <script src="<?php echo asset('assets/js/admin_header.js'); ?>"></script>
 </head>
 <body class="admin-body">    <header class="admin-header">

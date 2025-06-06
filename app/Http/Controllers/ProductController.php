@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class ProductController extends Controller 
 {    public function __construct()
     {
-        // Constructor can be used for middleware or other initialization if needed
+       
     }    public function index(Request $request)
     {        $query = DB::table('products')
             ->join('users', 'products.seller_id', '=', 'users.user_id')

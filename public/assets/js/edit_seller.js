@@ -185,16 +185,16 @@ function setupImageRemovalEvents() {
 }
 
 /**
- * Toggle image removal state for existing product images
- * @param {HTMLElement} button - The button element that was clicked
- * @param {string} imageName - The name of the image file
+ * Important for the image removal here. 
+ * @param {HTMLElement} button -The buttons elements functionaility is here.
+ * @param {string} imageName - This is the name of the image file here.
  */
 function toggleImageRemoval(button, imageName) {
     const imageItem = button.closest('.current-image-item');
     const hiddenInput = imageItem.querySelector('input[data-image="' + imageName + '"]');
     
     if (imageItem.classList.contains('marked-for-removal')) {
-        // Restore image
+      
         imageItem.classList.remove('marked-for-removal');
         imageItem.style.opacity = '1';
         button.innerHTML = '<i class="fas fa-trash"></i>';
@@ -203,7 +203,7 @@ function toggleImageRemoval(button, imageName) {
         hiddenInput.value = '';
         hiddenInput.disabled = true;
     } else {
-        // Mark for removal
+
         imageItem.classList.add('marked-for-removal');
         imageItem.style.opacity = '0.5';
         button.innerHTML = '<i class="fas fa-undo"></i>';

@@ -35,11 +35,10 @@ class ProfileController extends Controller
         ];        if ($request->hasFile('profile_image')) {
             $image = $request->file('profile_image');
             
-            // Validate file type and size
             $allowedTypes = ['jpg', 'jpeg', 'png'];
             $fileExtension = strtolower($image->getClientOriginalExtension());
-            $fileSize = $image->getSize(); // in bytes
-            $maxSize = 2 * 1024 * 1024; // 2MB in bytes
+            $fileSize = $image->getSize(); 
+            $maxSize = 2 * 1024 * 1024; 
             
             if (!in_array($fileExtension, $allowedTypes)) {
                 return redirect()->back()->with('error', 'Profile picture must be a JPG, JPEG, or PNG file.');
@@ -49,7 +48,6 @@ class ProfileController extends Controller
                 return redirect()->back()->with('error', 'Profile picture must be less than 2MB.');
             }
             
-            // Check if old profile picture exists and delete it
             if (isset($admin->profile_image)) {
                 $oldFilePath = public_path('uploads/profile_pictures/' . $admin->profile_image);
                 if (file_exists($oldFilePath)) {
@@ -57,7 +55,6 @@ class ProfileController extends Controller
                 }
             }
             
-            // Create uploads directory if it doesn't exist
             $uploadPath = public_path('uploads/profile_pictures');
             if (!file_exists($uploadPath)) {
                 mkdir($uploadPath, 0777, true);

@@ -16,7 +16,6 @@ class RegisterController extends Controller
         $page_title = "Register - C2C eCommerce";
         $custom_css = '<link href="' . my_url('/assets/css/register.css') . '" rel="stylesheet">';
         
-        // Extract data for the view
         $data = [
             'page_title' => $page_title,
             'custom_css' => $custom_css,
@@ -180,11 +179,10 @@ class RegisterController extends Controller
         if ($request->hasFile('profile_picture')) {
             $file = $request->file('profile_picture');
             
-            // Validate file type and size
             $allowedTypes = ['jpg', 'jpeg', 'png'];
             $fileExtension = strtolower($file->getClientOriginalExtension());
-            $fileSize = $file->getSize(); // in bytes
-            $maxSize = 2 * 1024 * 1024; // 2MB in bytes
+            $fileSize = $file->getSize();
+            $maxSize = 2 * 1024 * 1024; 
             
             if (!in_array($fileExtension, $allowedTypes)) {
                 session()->flash('error', 'Profile picture must be a JPG, JPEG, or PNG file.');
@@ -196,7 +194,6 @@ class RegisterController extends Controller
                 return redirect()->back()->withInput();
             }
             
-            // Create uploads directory if it doesn't exist
             $uploadPath = public_path('uploads/profile_pictures');
             if (!file_exists($uploadPath)) {
                 mkdir($uploadPath, 0777, true);

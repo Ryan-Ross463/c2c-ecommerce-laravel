@@ -35,7 +35,6 @@
     padding: 20px 0;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .product-image-container {
         height: 180px !important;

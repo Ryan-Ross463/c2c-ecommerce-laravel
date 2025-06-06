@@ -44,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Delete product functionality
     const deleteForm = document.getElementById('product-delete-form');
     if (deleteForm) {
         document.querySelectorAll('.delete-product-btn').forEach(button => {

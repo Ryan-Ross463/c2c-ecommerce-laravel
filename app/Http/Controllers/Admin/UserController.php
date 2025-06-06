@@ -18,7 +18,7 @@ class UserController extends Controller
           $search = $request->input('search');
         $role_filter = $request->input('role');
         $perPage = 10;
-        $page = (int) $request->input('page', 1);  // Ensure page is an integer
+        $page = (int) $request->input('page', 1);  
         
         try {
             $query = DB::table('users')

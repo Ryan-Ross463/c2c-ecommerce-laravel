@@ -82,7 +82,7 @@ class SellerController extends Controller
                                     $images[] = $filename;
                                 }
                             } catch (\Exception $e) {
-                                // Image upload failed, continue with other images
+                               
                             }
                         }
                     }
@@ -92,7 +92,7 @@ class SellerController extends Controller
                         $product->save();
                     }
                 } catch (\Exception $e) {
-                    // Error uploading images, product still created
+                  
                 }
             }
               return redirect()->route('seller.products')
@@ -176,7 +176,7 @@ class SellerController extends Controller
                           if (file_exists($uploadPath . '/' . $filename)) {
                             $currentImages[] = $filename;
                         }                    } catch (\Exception $e) {
-                        // Image upload failed, continue with other images
+                       
                     }
                 }
             }

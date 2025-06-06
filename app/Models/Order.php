@@ -8,18 +8,8 @@ class Order extends Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
     
-    /**
-     * The primary key for the model.
-     *
-     * @var string
-     */
     protected $primaryKey = 'order_id';
     
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'order_number',
         'user_id',
@@ -33,25 +23,16 @@ class Order extends Model
         'notes'
     ];
     
-    /**
-     * Get the order items for the order.
-     */
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class, 'order_id');
     }
     
-    /**
-     * Get the user that owns the order.
-     */
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
     
-    /**
-     * Generate a unique order number.
-     */
     public static function generateOrderNumber()
     {
         $prefix = 'ORD-';

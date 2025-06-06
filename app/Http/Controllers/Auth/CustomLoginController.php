@@ -7,11 +7,7 @@ use Illuminate\Http\Request;
 
 class CustomLoginController extends Controller
 {
-    /**
-     * Show the login form.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function showLoginForm()
     {
        
@@ -19,7 +15,6 @@ class CustomLoginController extends Controller
             session_start();
         }          if (!function_exists('my_url')) {
             function my_url($path = null) {
-                // Use config() instead of env() for cached config support
                 $baseUrl = config('app.url', 'http://localhost');
                 $path = $path ? '/' . ltrim($path, '/') : '';
                 return $baseUrl . $path;

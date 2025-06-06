@@ -150,7 +150,6 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
         <tbody>
             <?php if(count($products) > 0): ?>                <?php foreach($products as $product): ?>
                     <?php 
-                        // Use main_image from the join instead of the old image column
                         $image = $product->main_image;
                         
                         $category_name = 'Uncategorized';
@@ -250,7 +249,6 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
             </li>
             
             <?php
-            // Display a limited number of page links
             $max_links = 5;
             $start_page = max(1, min($page - floor($max_links / 2), $total_pages - $max_links + 1));
             $end_page = min($total_pages, $start_page + $max_links - 1);

@@ -22,15 +22,11 @@ class CreateAdminUser extends Command
      */
     protected $description = 'Create admin user and role for C2C Ecommerce';
 
-    /**
-     * Execute the console command.
-     */
     public function handle()
     {
         try {
             $this->info('Creating admin user and role...');
             
-            // Check if admin role exists, create if not
             $adminRole = DB::table('roles')->where('role_id', 3)->first();
             if (!$adminRole) {
                 DB::table('roles')->insert([
@@ -45,7 +41,6 @@ class CreateAdminUser extends Command
                 $this->info('ℹ️  Admin role already exists.');
             }
             
-            // Check if admin user already exists
             $existingAdmin = DB::table('users')->where('email', 'admin@c2cecommerce.com')->first();
             
             if (!$existingAdmin) {
