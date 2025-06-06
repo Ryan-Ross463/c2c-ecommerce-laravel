@@ -149,7 +149,7 @@ session()->forget(['registration_success', 'registered_name']);
     <div class="container">
         <div class="row justify-content-center text-center">
             <div class="col-lg-8">
-                <h1 class="display-4 fw-bold mb-4">Welcome to Our C2C Marketplace</h1>
+                <h1 class="display-4 fw-bold mb-4">Welcome to Our C2C Trade Marketplace</h1>
                 <p class="lead mb-4">Your one-stop destination for consumer-to-consumer trading. Our platform connects buyers and sellers directly, creating a vibrant community where you can buy unique items or start your own selling journey.</p>
                 <p class="mb-4">Whether you're looking to find great deals or turn your unused items into cash, our marketplace provides a secure and user-friendly environment for all your trading needs.</p>
                 <?php if (!auth()->check()) { ?>
