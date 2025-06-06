@@ -1,6 +1,2 @@
-package.json
-package-lock.json
+# Only ignore node_modules directory, but allow package.json and config files
 node_modules/
-vite.config.js
-*.config.js
-*.config.ts
