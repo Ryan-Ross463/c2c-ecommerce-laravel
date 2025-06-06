@@ -364,8 +364,101 @@ try {
    
     <link rel="stylesheet" href="<?php echo asset('assets/css/admin_dashboard.css'); ?>">
     <?php endif; ?>
+      <?php if (isset($custom_css)) echo $custom_css; ?>
     
-    <?php if (isset($custom_css)) echo $custom_css; ?>    <!-- Load external JavaScript file for better organization -->
+    <!-- Essential JavaScript for dropdown functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Admin header JavaScript loading...');
+            
+            // Menu toggle functionality
+            const menuToggle = document.getElementById('adminMenuToggle');
+            const adminNav = document.getElementById('adminNav');
+            
+            if (menuToggle && adminNav) {
+                menuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    adminNav.classList.toggle('show');
+                    console.log("Menu toggled:", adminNav.classList.contains('show'));
+                });
+            }
+
+            // Dropdown functionality
+            const dropdownToggles = document.querySelectorAll('.admin-dropdown-toggle');
+            console.log('Found dropdown toggles:', dropdownToggles.length);
+            
+            dropdownToggles.forEach(function(toggle, index) {
+                console.log('Setting up dropdown', index + 1);
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const parentDropdown = this.closest('.admin-dropdown');
+                    const isCurrentlyActive = parentDropdown.classList.contains('active');
+                    
+                    console.log('Dropdown clicked:', index + 1, 'Currently active:', isCurrentlyActive);
+                    
+                    // Close all other dropdowns
+                    document.querySelectorAll('.admin-dropdown').forEach(function(dropdown) {
+                        if (dropdown !== parentDropdown) {
+                            dropdown.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    if (!isCurrentlyActive) {
+                        parentDropdown.classList.add('active');
+                        console.log('Dropdown opened:', index + 1);
+                    } else {
+                        parentDropdown.classList.remove('active');
+                        console.log('Dropdown closed:', index + 1);
+                    }
+                });
+            });
+
+            // Close dropdowns and mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                // Don't close if clicking on modal-related elements
+                if (e.target.closest('.modal') || 
+                    e.target.closest('[data-bs-toggle="modal"]') || 
+                    e.target.closest('.delete-user-btn') || 
+                    document.querySelector('.modal.show')) {
+                    return;
+                }
+                
+                // Close mobile menu if clicking outside nav area
+                if (!e.target.closest('.admin-nav') && !e.target.closest('#adminMenuToggle')) {
+                    if (window.innerWidth <= 992) {
+                        adminNav.classList.remove('show');
+                    }
+                }
+                
+                // Close all dropdowns if clicking outside
+                if (!e.target.closest('.admin-dropdown')) {
+                    document.querySelectorAll('.admin-dropdown').forEach(function(dropdown) {
+                        dropdown.classList.remove('active');
+                    });
+                }
+            });
+
+            // Handle responsive behavior
+            function handleResponsive() {
+                if (window.innerWidth > 992) {
+                    adminNav.classList.remove('show');
+                    document.querySelectorAll('.admin-dropdown').forEach(function(dropdown) {
+                        dropdown.classList.remove('active');
+                    });
+                }
+            }
+            
+            window.addEventListener('resize', handleResponsive);
+            
+            console.log('Admin header JavaScript loaded successfully');
+        });
+    </script>
+    
+    <!-- Load external JavaScript file as backup -->
     <script src="<?php echo asset('assets/js/admin_header.js'); ?>"></script>
 </head>
 <body class="admin-body">    <header class="admin-header">
