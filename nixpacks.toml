@@ -1,7 +1,7 @@
-providers = ["php", "node"]
+providers = ["php"]
 
 [phases.setup]
-nixPkgs = ['php82', 'php82Packages.composer', 'php82Extensions.pdo', 'php82Extensions.pdo_mysql', 'php82Extensions.gd', 'php82Extensions.mbstring', 'php82Extensions.openssl', 'php82Extensions.curl']
+nixPkgs = ['php82', 'php82Packages.composer', 'php82Extensions.pdo', 'php82Extensions.pdo_mysql', 'php82Extensions.gd', 'php82Extensions.mbstring', 'php82Extensions.openssl', 'php82Extensions.curl', 'nodejs_18', 'npm']
 
 [phases.build]
 cmds = [
