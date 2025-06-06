@@ -4,6 +4,10 @@
 # Exit the script if any command fails
 set -e
 
+# Check if npm is available
+which npm || echo "npm not found in PATH"
+which node || echo "node not found in PATH"
+
 # Install Node.js dependencies
 npm install
 
