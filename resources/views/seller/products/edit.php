@@ -3,12 +3,12 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 $breadcrumbs = [
-    'Products' => my_url('/seller/products'),
+    'Products' => '/seller/products',
     'Edit Product' => null
 ];
 
 if (!auth()->check()) {
-    header("Location: " . my_url('/login?redirect=' . urlencode($_SERVER['REQUEST_URI'])));
+    header("Location: /login?redirect=" . urlencode($_SERVER['REQUEST_URI']));
     exit;
 }
 
@@ -17,7 +17,7 @@ $product_id = basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 $product = DB::table('products')->where('product_id', $product_id)->first();
 
 if (!$product || $product->seller_id != auth()->user()->user_id) {
-    header("Location: " . my_url('/seller/products'));
+    header("Location: /seller/products");
     exit;
 }
 
@@ -35,13 +35,13 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
 <div class="page-header">
     <h1><i class="fas fa-edit me-2"></i> Edit Product</h1>
     <div class="actions">
-        <a href="<?php echo my_url('/seller/products'); ?>" class="btn btn-outline-secondary">
+        <a href="/seller/products" class="btn btn-outline-secondary">
             <i class="fas fa-arrow-left me-1"></i> Back to Products
         </a>
     </div>
 </div>
 
-<form id="product-form" action="<?php echo my_url('/seller/products/update/' . $product_id); ?>" method="POST" enctype="multipart/form-data">
+<form id="product-form" action="/seller/products/update/<?php echo $product_id; ?>" method="POST" enctype="multipart/form-data">
     <?php 
     echo csrf_field(); 
     ?>
@@ -141,7 +141,7 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
                     <?php foreach($product_images as $index => $image): ?>
                         <?php if(!empty($image)): ?>
                             <div class="current-image-item position-relative">
-                                <img src="<?php echo my_url('/uploads/products/' . $image); ?>" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;" alt="Product image">
+                                <img src="/uploads/products/<?php echo $image; ?>" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;" alt="Product image">
                                 <button type="button" class="btn btn-sm btn-danger position-absolute" 
                                         style="top: 5px; right: 5px; opacity: 0.8;" 
                                         onclick="toggleImageRemoval(this, '<?php echo $image; ?>')">
@@ -166,7 +166,7 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
     
     <div class="form-section">
         <div class="d-flex justify-content-between">
-            <button type="button" onclick="window.location.href='<?php echo my_url('/seller/products'); ?>'" class="btn btn-outline-secondary">
+            <button type="button" onclick="window.location.href='/seller/products'" class="btn btn-outline-secondary">
                 Cancel
             </button>
             <div>
@@ -179,6 +179,6 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
 </form>
 
 <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
-<script src="<?php echo my_url('/assets/js/edit_seller.js'); ?>"></script>
+<script src="/assets/js/edit_seller.js"></script>
 
 <?php include(resource_path('views/layouts/seller_dashboard_footer.php')); ?>

@@ -250,13 +250,13 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-       
-        $product = Product::with('images')->findOrFail($id);
+         $product = Product::with('images')->findOrFail($id);
         
         $user = Auth::user();
         if ($product->seller_id !== $user->user_id) {
-            return redirect()->route('seller.products.index')
-                ->with('error', 'You do not have permission to edit this product.');
+            $_SESSION['error'] = 'You do not have permission to edit this product.';
+            header('Location: /seller/products');
+            exit;
         }        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'description' => 'required|string',
@@ -333,11 +333,11 @@ class ProductController extends Controller
                                     ->where('image', $uploadedImages[0])
                                     ->update(['is_main' => 1]);
                     }
-                }
-            }
+                }            }
 
-            return redirect()->route('seller.products.edit', ['id' => $product->product_id])
-                ->with('success', 'Product updated successfully.');
+            $_SESSION['success'] = 'Product updated successfully.';
+            header('Location: /seller/products/edit/' . $product->product_id);
+            exit;
                 
         } catch (\Exception $e) {
             return redirect()
