@@ -161,8 +161,9 @@ class ProductController extends Controller
                     $productImage->sort_order = $index;
                     $productImage->is_main = ($index === 0) ? 1 : 0;
                     $productImage->save();
-                }            }            return redirect('/seller/products')
-                ->with('success', 'Product created successfully.');
+                }            }            $_SESSION['success'] = 'Product created successfully.';
+            header('Location: /seller/products');
+            exit;
 
         } catch (\Exception $e) {
             return redirect()
