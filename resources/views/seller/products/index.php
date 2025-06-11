@@ -4,7 +4,7 @@ $breadcrumbs = [
 ];
 
 if (!auth()->check()) {
-    header("Location: " . my_url('/login?redirect=' . urlencode($_SERVER['REQUEST_URI'])));
+    header("Location: /login?redirect=" . urlencode($_SERVER['REQUEST_URI']));
     exit;
 }
 
@@ -51,9 +51,8 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
 ?>
 
 <div class="page-header">
-    <h1><i class="fas fa-box me-2"></i> My Products</h1>
-    <div class="actions">
-        <a href="<?php echo my_url('/seller/products/create'); ?>" class="btn btn-primary">
+    <h1><i class="fas fa-box me-2"></i> My Products</h1>    <div class="actions">
+        <a href="/seller/products/create" class="btn btn-primary">
             <i class="fas fa-plus-circle me-1"></i> Add New Product
         </a>
     </div>
@@ -61,7 +60,7 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
 
 <div class="card mb-4">
     <div class="card-body">
-        <form action="<?php echo my_url('/seller/products'); ?>" method="GET" class="row g-3">
+        <form action="/seller/products" method="GET" class="row g-3">
             <div class="col-md-4">
                 <label for="search" class="form-label">Search Products</label>
                 <div class="input-group">
@@ -92,9 +91,8 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
                     <option value="inactive" <?php echo $status_filter == 'inactive' ? 'selected' : ''; ?>>Inactive</option>
                 </select>
             </div>
-            
-            <div class="col-md-2 d-flex align-items-end">
-                <a href="<?php echo my_url('/seller/products'); ?>" class="btn btn-outline-secondary w-100">
+              <div class="col-md-2 d-flex align-items-end">
+                <a href="/seller/products" class="btn btn-outline-secondary w-100">
                     <i class="fas fa-redo me-1"></i> Reset
                 </a>
             </div>
@@ -165,10 +163,9 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
                             <div class="form-check">
                                 <input class="form-check-input item-checkbox" type="checkbox" value="<?php echo $product->product_id; ?>">
                             </div>
-                        </td>
-                        <td class="product-image-cell">
+                        </td>                        <td class="product-image-cell">
                             <?php if($image): ?>
-                                <img src="<?php echo my_url('/uploads/products/' . $image); ?>" alt="<?php echo htmlspecialchars($product->name); ?>" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                <img src="/uploads/products/<?php echo $image; ?>" alt="<?php echo htmlspecialchars($product->name); ?>" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
                             <?php else: ?>
                                 <div class="no-image bg-light d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
                                     <i class="fas fa-image text-muted"></i>
@@ -193,10 +190,10 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
                         </td>
                         <td><?php echo $product->views ?? 0; ?></td>                        <td>
                             <div class="btn-group btn-group-sm">
-                                <a href="<?php echo my_url('/products/' . $product->product_id); ?>" class="btn btn-outline-primary" data-bs-toggle="tooltip" title="View">
+                                <a href="/products/<?php echo $product->product_id; ?>" class="btn btn-outline-primary" data-bs-toggle="tooltip" title="View">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="<?php echo my_url('/seller/products/edit/' . $product->product_id); ?>" class="btn btn-outline-secondary" data-bs-toggle="tooltip" title="Edit">
+                                <a href="/seller/products/edit/<?php echo $product->product_id; ?>" class="btn btn-outline-secondary" data-bs-toggle="tooltip" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <button type="button" class="btn btn-outline-danger delete-product-btn" 
@@ -214,8 +211,7 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
                     <td colspan="9" class="text-center py-5">
                         <div class="display-6 text-muted mb-3"><i class="fas fa-box-open"></i></div>
                         <h3>No products found</h3>
-                        <p class="text-muted">You haven't added any products yet. Click the button below to add your first product.</p>
-                        <a href="<?php echo my_url('/seller/products/create'); ?>" class="btn btn-primary mt-2">
+                        <p class="text-muted">You haven't added any products yet. Click the button below to add your first product.</p>                        <a href="/seller/products/create" class="btn btn-primary mt-2">
                             <i class="fas fa-plus-circle me-1"></i> Add New Product
                         </a>
                     </td>
@@ -236,14 +232,13 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
     </div>
     
     <nav aria-label="Product pagination">
-        <ul class="pagination">
-            <li class="page-item <?php echo ($page <= 1) ? 'disabled' : ''; ?>">
-                <a class="page-link" href="<?php echo my_url('/seller/products?page=1&search='.$search.'&category='.$category_filter.'&status='.$status_filter); ?>" aria-label="First">
+        <ul class="pagination">            <li class="page-item <?php echo ($page <= 1) ? 'disabled' : ''; ?>">
+                <a class="page-link" href="/seller/products?page=1&search=<?php echo $search; ?>&category=<?php echo $category_filter; ?>&status=<?php echo $status_filter; ?>" aria-label="First">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
             <li class="page-item <?php echo ($page <= 1) ? 'disabled' : ''; ?>">
-                <a class="page-link" href="<?php echo my_url('/seller/products?page='.($page-1).'&search='.$search.'&category='.$category_filter.'&status='.$status_filter); ?>">
+                <a class="page-link" href="/seller/products?page=<?php echo ($page-1); ?>&search=<?php echo $search; ?>&category=<?php echo $category_filter; ?>&status=<?php echo $status_filter; ?>">
                     Previous
                 </a>
             </li>
@@ -256,10 +251,9 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
             if ($start_page > 1): ?>
                 <li class="page-item disabled"><span class="page-link">...</span></li>
             <?php endif; ?>
-            
-            <?php for($i = $start_page; $i <= $end_page; $i++): ?>
+              <?php for($i = $start_page; $i <= $end_page; $i++): ?>
                 <li class="page-item <?php echo ($page == $i) ? 'active' : ''; ?>">
-                    <a class="page-link" href="<?php echo my_url('/seller/products?page='.$i.'&search='.$search.'&category='.$category_filter.'&status='.$status_filter); ?>">
+                    <a class="page-link" href="/seller/products?page=<?php echo $i; ?>&search=<?php echo $search; ?>&category=<?php echo $category_filter; ?>&status=<?php echo $status_filter; ?>">
                         <?php echo $i; ?>
                     </a>
                 </li>
@@ -268,14 +262,13 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
             <?php if ($end_page < $total_pages): ?>
                 <li class="page-item disabled"><span class="page-link">...</span></li>
             <?php endif; ?>
-            
-            <li class="page-item <?php echo ($page >= $total_pages) ? 'disabled' : ''; ?>">
-                <a class="page-link" href="<?php echo my_url('/seller/products?page='.($page+1).'&search='.$search.'&category='.$category_filter.'&status='.$status_filter); ?>">
+              <li class="page-item <?php echo ($page >= $total_pages) ? 'disabled' : ''; ?>">
+                <a class="page-link" href="/seller/products?page=<?php echo ($page+1); ?>&search=<?php echo $search; ?>&category=<?php echo $category_filter; ?>&status=<?php echo $status_filter; ?>">
                     Next
                 </a>
             </li>
             <li class="page-item <?php echo ($page >= $total_pages) ? 'disabled' : ''; ?>">
-                <a class="page-link" href="<?php echo my_url('/seller/products?page='.$total_pages.'&search='.$search.'&category='.$category_filter.'&status='.$status_filter); ?>" aria-label="Last">
+                <a class="page-link" href="/seller/products?page=<?php echo $total_pages; ?>&search=<?php echo $search; ?>&category=<?php echo $category_filter; ?>&status=<?php echo $status_filter; ?>" aria-label="Last">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
@@ -303,7 +296,7 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
     </div>
 </div>
 
-<form id="product-delete-form" action="" method="POST" data-baseurl="<?php echo my_url('/seller/products/delete/__ID__'); ?>">
+<form id="product-delete-form" action="" method="POST" data-baseurl="/seller/products/delete/__ID__">
     <?php echo csrf_field(); ?>
 </form>
 
@@ -315,9 +308,9 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
 
 <script>
  
-    var bulkActionBaseUrl = '<?php echo my_url('/seller/products/bulk-action'); ?>';
+    var bulkActionBaseUrl = '/seller/products/bulk-action';
 </script>
 
-<script src="<?php echo my_url('/assets/js/index_seller.js'); ?>"></script>
+<script src="/assets/js/index_seller.js"></script>
 
 <?php include(resource_path('views/layouts/seller_dashboard_footer.php')); ?>

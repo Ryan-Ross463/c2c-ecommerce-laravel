@@ -56,7 +56,7 @@ Route::middleware(['web'])->group(function () {
         Route::post('/products/store', [SellerProductController::class, 'store'])->name('seller.products.store');
         Route::get('/products/edit/{id}', [SellerProductController::class, 'edit'])->name('seller.products.edit');
         Route::post('/products/update/{id}', [SellerProductController::class, 'update'])->name('seller.products.update');
-        Route::delete('/products/delete/{id}', [SellerProductController::class, 'destroy'])->name('seller.products.delete');
+        Route::post('/products/delete/{id}', [SellerProductController::class, 'destroy'])->name('seller.products.delete');
         Route::post('/products/bulk-action', [SellerProductController::class, 'bulkAction'])->name('seller.products.bulk');
         
         Route::post('/products/image/upload', [SellerProductController::class, 'uploadImage'])->name('seller.products.upload.image');

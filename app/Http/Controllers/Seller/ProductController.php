@@ -350,11 +350,11 @@ class ProductController extends Controller
       public function destroy($id)
     {
         $product = Product::findOrFail($id);
-        
-        $user = Auth::user();
+          $user = Auth::user();
         if ($product->seller_id !== $user->user_id) { 
-            return redirect()->route('seller.products.index')
-                ->with('error', 'You do not have permission to delete this product.');
+            $_SESSION['error'] = 'You do not have permission to delete this product.';
+            header('Location: /seller/products');
+            exit;
         }        try {
             foreach ($product->images as $image) {
                 $path = public_path('uploads/products/' . $image->image);
@@ -368,11 +368,13 @@ class ProductController extends Controller
            
             $product->delete();
             
-            return redirect()->route('seller.products.index')
-                ->with('success', 'Product deleted successfully.');
+            $_SESSION['success'] = 'Product deleted successfully.';
+            header('Location: /seller/products');
+            exit;
         } catch (\Exception $e) {
-            return redirect()->route('seller.products.index')
-                ->with('error', 'An error occurred while deleting the product: ' . $e->getMessage());
+            $_SESSION['error'] = 'An error occurred while deleting the product: ' . $e->getMessage();
+            header('Location: /seller/products');
+            exit;
         }
     }
 
