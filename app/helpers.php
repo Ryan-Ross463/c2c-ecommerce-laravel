@@ -10,12 +10,12 @@ if (!function_exists('my_url')) {
      * @return string
      */    function my_url($path = null, $parameters = [], $secure = null)
     {
-        // For Railway deployment, ensure proper HTTPS URL
+        
         if (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'railway.app') !== false) {
             $baseUrl = 'https://' . $_SERVER['HTTP_HOST'];
         } else {
             $baseUrl = config('app.url', 'http://localhost');
-            // Ensure we have a protocol
+           
             if (!preg_match('/^https?:\/\//', $baseUrl)) {
                 $baseUrl = 'https://' . ltrim($baseUrl, '/');
             }
@@ -46,18 +46,18 @@ if (!function_exists('check_active')) {
 
 if (!function_exists('asset')) {
     function asset($path) {
-        // For Railway deployment, ensure proper HTTPS URL
+        
         if (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'railway.app') !== false) {
             $baseUrl = 'https://' . $_SERVER['HTTP_HOST'];
-            // Railway serves assets directly from root, no 'public/' prefix needed
+            
             return $baseUrl . '/' . ltrim($path, '/');
         } else {
             $baseUrl = config('app.url', 'http://localhost');
-            // Ensure we have a protocol
+            
             if (!preg_match('/^https?:\/\//', $baseUrl)) {
                 $baseUrl = 'https://' . ltrim($baseUrl, '/');
             }
-            // For local development, prepend 'public/' for the correct path
+            
             $publicPath = 'public/' . ltrim($path, '/');
             return $baseUrl . '/' . $publicPath;
         }

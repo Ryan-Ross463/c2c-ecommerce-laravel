@@ -99,6 +99,12 @@ class ProductController extends Controller
         return view('seller.products.create', compact('categories'));
     }    public function store(Request $request)
     {
+        // Debug: Log that the store method is being called
+        \Log::info('ProductController store method called', [
+            'request_data' => $request->all(),
+            'user_id' => Auth::user()->user_id ?? 'not_authenticated'
+        ]);
+        
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'description' => 'required|string',
