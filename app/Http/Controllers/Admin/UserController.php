@@ -92,13 +92,14 @@ class UserController extends Controller
         $admin = DB::table('users')->where('user_id', $user_id)->first();
         
         $user = DB::table('users')
-            ->select('users.*', 'roles.name as role_name')
-            ->leftJoin('roles', 'users.role_id', '=', 'roles.role_id')
+            ->select('users.*', 'roles.name as role_name')        ->leftJoin('roles', 'users.role_id', '=', 'roles.role_id')
             ->where('users.user_id', $id)
             ->first();
         
         if (!$user) {
-            return redirect('/admin/users/manage_users')->with('error', 'User not found');
+            $_SESSION['error'] = 'User not found';
+            header('Location: /admin/users/manage_users');
+            exit;
         }
         
         $page_title = "View User: " . $user->name;
@@ -136,20 +137,22 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role_id' => 3,
-            'created_at' => now(),
-            'updated_at' => now(),
+            'created_at' => now(),        'updated_at' => now(),
         ]);
         
-        return redirect('/admin/users/manage_users')->with('success', 'Admin user created successfully');
+        $_SESSION['success'] = 'Admin user created successfully';
+        header('Location: /admin/users/manage_users');
+        exit;
     }
     
   public function deleteUser(Request $request, $id)
     {
         if ($id == session('user_id')) {
-            return redirect('/admin/users/manage_users')->with('error', 'You cannot delete your own account');
+            $_SESSION['error'] = 'You cannot delete your own account';
+            header('Location: /admin/users/manage_users');
+            exit;
         }
-        
-        $user = DB::table('users')->where('user_id', $id)->first();
+          $user = DB::table('users')->where('user_id', $id)->first();
         $userName = $user ? $user->name : 'User';
         
         DB::table('users')->where('user_id', $id)->delete();
@@ -157,18 +160,21 @@ class UserController extends Controller
         $returnTo = $request->input('return_to');
         $redirectPath = '/admin/users/manage_users' . ($returnTo ? $returnTo : '');
         
-        return redirect($redirectPath)->with('success', "User '{$userName}' has been deleted successfully");
+        $_SESSION['success'] = "User '{$userName}' has been deleted successfully";
+        header('Location: ' . $redirectPath);
+        exit;
     }
 
     public function editUser($id)
     {
-        $user_id = session('user_id');
-        $admin = DB::table('users')->where('user_id', $user_id)->first();
+        $user_id = session('user_id');        $admin = DB::table('users')->where('user_id', $user_id)->first();
         
         $user = DB::table('users')->where('user_id', $id)->first();
         
         if (!$user) {
-            return redirect('/admin/users/manage_users')->with('error', 'User not found');
+            $_SESSION['error'] = 'User not found';
+            header('Location: /admin/users/manage_users');
+            exit;
         }
         
         $roles = DB::table('roles')->orderBy('name')->get();
@@ -186,15 +192,16 @@ class UserController extends Controller
     public function updateUser(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,'.$id.',user_id',
+            'name' => 'required|string|max:255',        'email' => 'required|string|email|max:255|unique:users,email,'.$id.',user_id',
             'role_id' => 'required|numeric|exists:roles,role_id',
         ]);
         
         $user = DB::table('users')->where('user_id', $id)->first();
         
         if (!$user) {
-            return redirect('/admin/users/manage_users')->with('error', 'User not found');
+            $_SESSION['error'] = 'User not found';
+            header('Location: /admin/users/manage_users');
+            exit;
         }
         
         $updateData = [
@@ -206,7 +213,7 @@ class UserController extends Controller
         
         if ($request->filled('password')) {
             $request->validate([
-                'password' => 'string|min:8|confirmed',
+        'password' => 'string|min:8|confirmed',
             ]);
             
             $updateData['password'] = Hash::make($request->password);
@@ -214,6 +221,8 @@ class UserController extends Controller
         
         DB::table('users')->where('user_id', $id)->update($updateData);
         
-        return redirect('/admin/users/manage_users')->with('success', 'User updated successfully');
+        $_SESSION['success'] = 'User updated successfully';
+        header('Location: /admin/users/manage_users');
+        exit;
     }
 }
