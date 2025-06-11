@@ -7,14 +7,13 @@ include(resource_path('views/layouts/admin_header.php'));
 <div class="admin-content-main">
     <h1>Create Admin User</h1>
     
-    <div class="admin-card card">
-        <div class="admin-header card-header d-flex justify-content-between align-items-center">
+    <div class="admin-card card">        <div class="admin-header card-header d-flex justify-content-between align-items-center">
             <h2 class="card-title mb-0">New Admin User</h2>
-            <a href="<?php echo my_url('/admin/users/manage_users'); ?>" class="btn btn-outline-secondary">Back to Users</a>
+            <a href="/admin/users/manage_users" class="btn btn-outline-secondary">Back to Users</a>
         </div>
         
         <div class="admin-content card-body">
-            <form action="<?php echo my_url('/admin/users/create_admin'); ?>" method="POST" class="admin-form">
+            <form action="/admin/users/create_admin" method="POST" class="admin-form">
                 <?php echo csrf_field(); ?>
                 
                 <div class="form-group">
@@ -66,12 +65,11 @@ include(resource_path('views/layouts/admin_header.php'));
                         </div>
                     <?php endif; ?>
                 </div>
-                
-                <div class="form-actions">
+                  <div class="form-actions">
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-user-plus me-2"></i>Create Admin
                     </button>
-                    <a href="<?php echo my_url('/admin/users/manage_users'); ?>" class="btn btn-secondary">
+                    <a href="/admin/users/manage_users" class="btn btn-secondary">
                         <i class="fas fa-times me-2"></i>Cancel
                     </a>
                 </div>

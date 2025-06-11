@@ -17,13 +17,12 @@ include(resource_path('views/layouts/admin_header.php'));
             <?php echo session('error'); ?>
         </div>
     <?php endif; ?>      <div class="admin-card card">
-        <div class="admin-header card-header d-flex justify-content-between align-items-center">
-            <h2 class="card-title mb-0 fw-bold">All Users</h2>
-            <a href="<?php echo my_url('/admin/users/create_admin'); ?>" class="admin-btn admin-btn-primary btn btn-primary btn-sm">
+        <div class="admin-header card-header d-flex justify-content-between align-items-center">        <h2 class="card-title mb-0 fw-bold">All Users</h2>
+            <a href="/admin/users/create_admin" class="admin-btn admin-btn-primary btn btn-primary btn-sm">
                 <i class="fas fa-user-plus me-2"></i> Create Admin User
             </a>
         </div><div class="admin-search-container p-3 bg-light border-bottom">
-            <form action="<?php echo my_url('/admin/users/manage_users'); ?>" method="GET" class="admin-search-form" id="userSearchForm">
+            <form action="/admin/users/manage_users" method="GET" class="admin-search-form" id="userSearchForm">
                 <div class="row g-3 align-items-end">
                     <div class="col-md-3">
                         <label for="search" class="form-label">Search:</label>
@@ -63,8 +62,7 @@ include(resource_path('views/layouts/admin_header.php'));
                         <div class="d-grid gap-2 d-md-flex w-100 justify-content-md-end">
                             <button type="submit" class="btn btn-sm btn-primary search-action-btn">
                                 <i class="fas fa-search me-1"></i> Search
-                            </button>
-                            <a href="<?php echo my_url('/admin/users/manage_users'); ?>" class="btn btn-sm btn-secondary search-action-btn">
+                            </button>                            <a href="/admin/users/manage_users" class="btn btn-sm btn-secondary search-action-btn">
                                 <i class="fas fa-undo me-1"></i> Reset
                             </a>
                         </div>
@@ -107,13 +105,12 @@ include(resource_path('views/layouts/admin_header.php'));
                                         <?php echo ucfirst($user->status ?? 'Active'); ?>
                                     </span>
                                 </td>                                <td data-title="Actions" class="text-end">
-                                    <div class="btn-group">
-                                        <a href="<?php echo my_url('/admin/users/view/' . $user->user_id); ?>" class="btn btn-sm btn-info action-btn-custom" title="View User">
+                                    <div class="btn-group">                                        <a href="/admin/users/view/<?php echo $user->user_id; ?>" class="btn btn-sm btn-info action-btn-custom" title="View User">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="<?php echo my_url('/admin/users/edit/' . $user->user_id); ?>" class="btn btn-sm btn-warning action-btn-custom" title="Edit User">
+                                        <a href="/admin/users/edit/<?php echo $user->user_id; ?>" class="btn btn-sm btn-warning action-btn-custom" title="Edit User">
                                             <i class="fas fa-edit"></i>
-                                        </a>                                        <button type="button" 
+                                        </a><button type="button" 
                                            class="btn btn-sm btn-danger action-btn-custom delete-user-btn" 
                                            title="Delete User"
                                            data-user-id="<?php echo $user->user_id; ?>"
@@ -130,8 +127,7 @@ include(resource_path('views/layouts/admin_header.php'));
                                     <div class="d-flex flex-column align-items-center">
                                         <i class="fas fa-users fa-3x mb-3 text-muted"></i>
                                         <p class="mb-3">No users found<?php echo isset($search) && !empty($search) ? ' matching your search criteria' : ''; ?></p>
-                                        <?php if(isset($search) && !empty($search) || isset($role_filter) && !empty($role_filter) || isset($status_filter) && !empty($status_filter)): ?>
-                                            <a href="<?php echo my_url('/admin/users/manage_users'); ?>" class="btn btn-outline-secondary">
+                                        <?php if(isset($search) && !empty($search) || isset($role_filter) && !empty($role_filter) || isset($status_filter) && !empty($status_filter)): ?>                                            <a href="/admin/users/manage_users" class="btn btn-outline-secondary">
                                                 <i class="fas fa-undo me-1"></i> Clear Filters
                                             </a>
                                         <?php endif; ?>
@@ -192,7 +188,7 @@ include(resource_path('views/layouts/admin_header.php'));
                         
                         <?php for($i = $startPage; $i <= $endPage; $i++): ?>
                             <li class="page-item <?php echo ($i == $current_page) ? 'active' : ''; ?>">
-                                <a class="page-link" href="<?php echo my_url('/admin/users/manage_users?' . http_build_query(array_merge($_GET, ['page' => $i]))); ?>">
+                                <a class="page-link" href="/admin/users/manage_users?<?php echo http_build_query(array_merge($_GET, ['page' => $i])); ?>">
                                     <?php echo $i; ?>
                                 </a>
                             </li>
@@ -271,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Create form and submit
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '<?php echo my_url('/admin/users/delete/'); ?>' + userIdToDelete;
+            form.action = '/admin/users/delete/' + userIdToDelete;
             
             // Add CSRF token
             const csrfInput = document.createElement('input');

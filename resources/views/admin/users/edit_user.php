@@ -9,15 +9,13 @@ function getUserProperty($user, $property, $default = '') {
 <link rel="stylesheet" href="<?php echo asset('assets/css/admin_edit_user.css'); ?>">
 
 <div class="admin-content-main">
-    <div class="admin-card card">
-        <div class="admin-header card-header d-flex justify-content-between align-items-center">
+    <div class="admin-card card">        <div class="admin-header card-header d-flex justify-content-between align-items-center">
             <h1 class="card-title mb-0">Edit User</h1>
-            <a href="<?php echo my_url('/admin/users/manage_users'); ?>" class="btn btn-outline-secondary">Back to Users</a>
+            <a href="/admin/users/manage_users" class="btn btn-outline-secondary">Back to Users</a>
         </div>
         
-        <div class="card-body">
-            <?php if(isset($user) && is_object($user)): ?>
-                <form action="<?php echo my_url('/admin/users/edit/' . htmlspecialchars(getUserProperty($user, 'user_id'))); ?>" method="POST" class="admin-form">
+        <div class="card-body">            <?php if(isset($user) && is_object($user)): ?>
+                <form action="/admin/users/edit/<?php echo htmlspecialchars(getUserProperty($user, 'user_id')); ?>" method="POST" class="admin-form">
                     <?php echo csrf_field(); ?>
                     
                     <div class="form-group">
@@ -83,10 +81,9 @@ function getUserProperty($user, $property, $default = '') {
                         <label for="password_confirmation" class="form-label">Confirm Password</label>
                         <input type="password" id="password_confirmation" name="password_confirmation" class="form-control">
                     </div>
-                    
-                    <div class="form-actions">
+                      <div class="form-actions">
                         <button type="submit" class="btn btn-primary">Update User</button>
-                        <a href="<?php echo my_url('/admin/users/manage_users'); ?>" class="btn btn-secondary">Cancel</a>
+                        <a href="/admin/users/manage_users" class="btn btn-secondary">Cancel</a>
                     </div>
                 </form>
             <?php else: ?>
