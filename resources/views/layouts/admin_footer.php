@@ -2,13 +2,12 @@
         <div class="admin-footer-content">
             <div class="admin-footer-copyright">
                 &copy; <?php echo date('Y'); ?> C2C E-commerce Platform. All rights reserved.
-            </div>
-            <div class="admin-footer-links">
-                <a href="<?php echo my_url('/admin'); ?>">Dashboard</a>
+            </div>            <div class="admin-footer-links">
+                <a href="/admin">Dashboard</a>
                 <span class="footer-separator">|</span>
-                <a href="<?php echo my_url('/admin/reports'); ?>">Reports</a>
+                <a href="/admin/reports">Reports</a>
                 <span class="footer-separator">|</span>
-                <a href="<?php echo my_url('/admin/profile'); ?>">Profile</a>
+                <a href="/admin/profile">Profile</a>
             </div>
         </div>
     </footer>

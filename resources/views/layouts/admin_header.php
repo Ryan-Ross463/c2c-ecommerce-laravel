@@ -67,11 +67,10 @@ try {
 <head>    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="base-url" content="<?php echo $base_url; ?>">
-    <title><?php echo isset($page_title) ? $page_title . " - C2C E-commerce Admin" : "Admin Dashboard - C2C E-commerce"; ?></title><link rel="icon" href="<?php echo $base_url; ?>/assets/images/favicon.ico" type="image/x-icon">     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title><?php echo isset($page_title) ? $page_title . " - C2C E-commerce Admin" : "Admin Dashboard - C2C E-commerce"; ?></title><link rel="icon" href="<?php echo $base_url; ?>/assets/images/favicon.ico" type="image/x-icon">     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
-    <link rel="stylesheet" href="<?php echo my_url('/build/assets/app-CMxZnDx3.css'); ?>">
-    <script type="module" src="<?php echo my_url('/build/assets/app-T1DpEqax.js'); ?>"></script>
+    <link rel="stylesheet" href="/build/assets/app-CMxZnDx3.css">
+    <script type="module" src="/build/assets/app-T1DpEqax.js"></script>
     
     <style>
         .admin-body {
@@ -452,13 +451,13 @@ try {
 </head>
 <body class="admin-body">    <header class="admin-header">
         <div class="admin-brand">
-            <a href="<?php echo my_url('/admin'); ?>">C2C E-commerce Admin</a>
+            <a href="/admin">C2C E-commerce Admin</a>
         </div>
         <button class="admin-menu-toggle" id="adminMenuToggle" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
         </button>
         <nav class="admin-nav" id="adminNav">
-            <a href="<?php echo my_url('/admin'); ?>" <?php echo (isset($_GET['page']) && $_GET['page'] == 'dashboard') || basename($_SERVER['REQUEST_URI']) == 'admin' ? 'class="active"' : ''; ?>>
+            <a href="/admin" <?php echo (isset($_GET['page']) && $_GET['page'] == 'dashboard') || basename($_SERVER['REQUEST_URI']) == 'admin' ? 'class="active"' : ''; ?>>
                 <i class="fas fa-tachometer-alt"></i> Dashboard
             </a>
             <div class="admin-dropdown">
@@ -467,25 +466,24 @@ try {
                 </a>
                 <div class="admin-dropdown-container">
                     <div class="admin-dropdown-content">
-                        <a href="<?php echo my_url('/admin/users/manage_users'); ?>">
+                        <a href="/admin/users/manage_users">
                             <i class="fas fa-user-cog"></i> Manage Users
                         </a>
-                        <a href="<?php echo my_url('/admin/users/create_admin'); ?>">
+                        <a href="/admin/users/create_admin">
                             <i class="fas fa-user-plus"></i> Create Admin
                         </a>
                     </div>
                 </div>
-            </div>
-            <div class="admin-dropdown">
+            </div>            <div class="admin-dropdown">
                 <a href="#" class="admin-dropdown-toggle">
                     <i class="fas fa-shopping-bag"></i> <span>Products</span>
                 </a>
                 <div class="admin-dropdown-container">
                     <div class="admin-dropdown-content">
-                        <a href="<?php echo my_url('/admin/products'); ?>">
+                        <a href="/admin/products">
                             <i class="fas fa-list"></i> All Products
                         </a>
-                        <a href="<?php echo my_url('/admin/products/create'); ?>">
+                        <a href="/admin/products/create">
                             <i class="fas fa-plus-circle"></i> Add Product
                         </a>
                     </div>
@@ -497,19 +495,18 @@ try {
                 </a>
                 <div class="admin-dropdown-container">
                     <div class="admin-dropdown-content">
-                        <a href="<?php echo my_url('/admin/reports'); ?>">
+                        <a href="/admin/reports">
                             <i class="fas fa-shopping-cart"></i> Orders Report
                         </a>
-                        <a href="<?php echo my_url('/admin/reports/sales'); ?>">
+                        <a href="/admin/reports/sales">
                             <i class="fas fa-dollar-sign"></i> Sales Report
                         </a>
-                        <a href="<?php echo my_url('/admin/reports/user_activity'); ?>">
+                        <a href="/admin/reports/user_activity">
                             <i class="fas fa-user-clock"></i> User Activity
                         </a>
                     </div>
                 </div>
-            </div>
-            <a href="<?php echo my_url('/'); ?>" target="_blank">
+            </div>            <a href="/" target="_blank">
                 <i class="fas fa-globe"></i> View Site
             </a>
             <div class="admin-dropdown">
@@ -517,14 +514,14 @@ try {
                     <i class="fas fa-user-shield"></i> <span><?php echo isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_name']) : 'Admin'; ?></span>
                 </a>                <div class="admin-dropdown-container">
                     <div class="admin-dropdown-content">
-                        <a href="<?php echo my_url('/admin/profile'); ?>">
+                        <a href="/admin/profile">
                             <i class="fas fa-id-card"></i> My Profile
                         </a>
                         <div class="admin-dropdown-divider"></div>
-                        <a href="<?php echo my_url('/logout'); ?>" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <a href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="fas fa-sign-out-alt"></i> Logout
                         </a>
-                        <form id="logout-form" action="<?php echo my_url('/logout'); ?>" method="POST" style="display: none;">
+                        <form id="logout-form" action="/logout" method="POST" style="display: none;">
                             <?php 
                             if (function_exists('csrf_field')) {
                                 echo csrf_field(); 
