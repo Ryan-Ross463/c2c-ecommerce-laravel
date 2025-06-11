@@ -246,11 +246,13 @@ class ProductController extends Controller
         $categories = Category::all();
         
         return view('seller.products.edit', compact('product', 'categories'));
-    }
-
-    public function update(Request $request, $id)
+    }    public function update(Request $request, $id)
     {
-         $product = Product::with('images')->findOrFail($id);
+        // Debug: Log that update method is being called
+        error_log("ProductController update method called for product ID: $id");
+        error_log("Request data: " . json_encode($request->all()));
+        
+        $product = Product::with('images')->findOrFail($id);
         
         $user = Auth::user();
         if ($product->seller_id !== $user->user_id) {
@@ -265,17 +267,16 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,category_id',
             'condition_type' => 'required|string|in:New,Like New,Good,Fair,Poor',
             'status' => 'required|string|in:active,inactive',
-            'product_images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+            'product_images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',        ]);
 
         if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
+            $_SESSION['errors'] = $validator->errors()->toArray();
+            $_SESSION['_old_input'] = $request->all();
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit;
         }        try {
            
-            $product->description = $request->description;
+            $product->name = $request->name;
             $product->price = $request->price;
             $product->stock = $request->quantity;
             $product->category_id = $request->category_id;
@@ -338,12 +339,11 @@ class ProductController extends Controller
             $_SESSION['success'] = 'Product updated successfully.';
             header('Location: /seller/products/edit/' . $product->product_id);
             exit;
-                
-        } catch (\Exception $e) {
-            return redirect()
-                ->back()
-                ->with('error', 'An error occurred while updating the product: ' . $e->getMessage())
-                ->withInput();
+                  } catch (\Exception $e) {
+            $_SESSION['error'] = 'An error occurred while updating the product: ' . $e->getMessage();
+            $_SESSION['_old_input'] = $request->all();
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit;
         }
     }
 
