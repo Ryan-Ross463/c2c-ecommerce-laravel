@@ -3,12 +3,12 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 $breadcrumbs = [
-    'Products' => my_url('/seller/products'),
+    'Products' => '/seller/products',
     'Add New' => null
 ];
 
 if (!auth()->check()) {
-    header("Location: " . my_url('/login?redirect=' . urlencode($_SERVER['REQUEST_URI'])));
+    header("Location: /login?redirect=" . urlencode($_SERVER['REQUEST_URI']));
     exit;
 }
 
@@ -18,9 +18,8 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
 ?>
 
 <div class="page-header">
-    <h1><i class="fas fa-plus-circle me-2"></i> Add New Product</h1>
-    <div class="actions">
-        <a href="<?php echo my_url('/seller/products'); ?>" class="btn btn-outline-secondary">
+    <h1><i class="fas fa-plus-circle me-2"></i> Add New Product</h1>    <div class="actions">
+        <a href="/seller/products" class="btn btn-outline-secondary">
             <i class="fas fa-arrow-left me-1"></i> Back to Products
         </a>
     </div>
@@ -29,10 +28,9 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
 <form id="product-form" action="/seller/products/store" method="POST" enctype="multipart/form-data">
     <?php 
     echo csrf_field(); 
-    ?>
-    
+    ?>    
     <!-- Debug: Show form action URL -->
-    <script>console.log('Form action URL: <?php echo my_url('/seller/products/store'); ?>');</script>
+    <script>console.log('Form action URL: /seller/products/store');</script>
     <?php if(session('error')): ?>
         <div class="alert alert-danger">
             <?php echo session('error'); ?>
@@ -118,8 +116,7 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
             <input type="hidden" name="image_names" id="image_names">
         </div>
     </div>
-    <div class="form-section">
-        <div class="d-flex justify-content-between">            <button type="button" onclick="window.location.href='<?php echo my_url('/seller/products'); ?>'" class="btn btn-outline-secondary">
+    <div class="form-section">        <div class="d-flex justify-content-between">            <button type="button" onclick="window.location.href='/seller/products'" class="btn btn-outline-secondary">
                 Cancel
             </button>
             <button type="submit" id="save-product-btn" class="btn btn-primary">
@@ -128,6 +125,6 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
         </div>    </div>
 </form>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
-<script src="<?php echo my_url('/assets/js/create_seller.js'); ?>"></script>
+<script src="/assets/js/create_seller.js"></script>
 
 <?php include(resource_path('views/layouts/seller_dashboard_footer.php')); ?>
