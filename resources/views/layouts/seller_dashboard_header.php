@@ -7,7 +7,7 @@ include(resource_path('views/layouts/header.php'));
 
 if (!auth()->check()) {
    
-    $redirect_url = my_url('/login?redirect=' . urlencode($_SERVER['REQUEST_URI']));
+    $redirect_url = '/login?redirect=' . urlencode($_SERVER['REQUEST_URI']);
     header("Location: {$redirect_url}");
     exit;
 }
@@ -18,7 +18,7 @@ $seller = $user;
 
 if (!$seller) {
   
-    header("Location: " . my_url('/login'));
+    header("Location: /login");
     exit;
 }
 
@@ -34,8 +34,8 @@ if (strpos($current_url, '/seller/products') !== false) {
 }
 ?>
 
-<link href="<?php echo my_url('/assets/css/seller-dashboard.css').'?v='.time(); ?>" rel="stylesheet">
-<link href="<?php echo my_url('/assets/css/seller-dashboard-footer.css').'?v='.time(); ?>" rel="stylesheet">
+<link href="/assets/css/seller-dashboard.css?v=<?php echo time(); ?>" rel="stylesheet">
+<link href="/assets/css/seller-dashboard-footer.css?v=<?php echo time(); ?>" rel="stylesheet">
 
 <style>
     .logout-btn {
@@ -62,10 +62,9 @@ if (strpos($current_url, '/seller/products') !== false) {
                 <div class="sidebar-header">
                     <h3>Seller Dashboard</h3>
                 </div>
-                  <div class="sidebar-profile">
-                    <div class="profile-image">
+                  <div class="sidebar-profile">                <div class="profile-image">
                         <?php if (!empty($seller->profile_image)): ?>
-                            <img src="<?php echo my_url('/uploads/profile_pictures/' . $seller->profile_image); ?>" alt="Profile Image">
+                            <img src="/uploads/profile_pictures/<?php echo $seller->profile_image; ?>" alt="Profile Image">
                         <?php else: ?>
                             <div class="profile-initial"><?php echo strtoupper(substr($seller->name, 0, 1)); ?></div>
                         <?php endif; ?>
@@ -74,24 +73,22 @@ if (strpos($current_url, '/seller/products') !== false) {
                         <h5><?php echo $seller->name; ?></h5>
                         <p class="text-muted">Seller</p>
                     </div>
-                </div>
-                  <ul class="sidebar-menu">
+                </div>                  <ul class="sidebar-menu">
                     <li class="<?php echo $active_menu === 'products' ? 'active' : ''; ?>">
-                        <a href="<?php echo my_url('/seller/products'); ?>">
+                        <a href="/seller/products">
                             <i class="fas fa-box"></i> Products
                         </a>
                     </li>
                     <li class="<?php echo $active_menu === 'orders' ? 'active' : ''; ?>">
-                        <a href="<?php echo my_url('/seller/orders'); ?>">
+                        <a href="/seller/orders">
                             <i class="fas fa-shopping-cart"></i> Orders
                         </a>
                     </li>                    <li class="<?php echo $active_menu === 'profile' ? 'active' : ''; ?>">
-                        <a href="<?php echo my_url('/seller/profile'); ?>">
+                        <a href="/seller/profile">
                             <i class="fas fa-user"></i> Profile
                         </a>
-                    </li>
-                    <li>
-                        <form method="POST" action="<?php echo my_url('/logout'); ?>">
+                    </li>                    <li>
+                        <form method="POST" action="/logout">
                             <?php echo csrf_field(); ?>
                             <button type="submit" class="btn btn-link text-decoration-none logout-btn">
                                 <i class="fas fa-sign-out-alt"></i> Logout
@@ -115,10 +112,9 @@ if (strpos($current_url, '/seller/products') !== false) {
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 <?php endif; ?>                <?php if (isset($breadcrumbs) && is_array($breadcrumbs)): ?>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
+                <nav aria-label="breadcrumb">                    <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="<?php echo my_url('/seller/products'); ?>">
+                            <a href="/seller/products">
                                 <i class="fas fa-home"></i>
                             </a>
                         </li>
