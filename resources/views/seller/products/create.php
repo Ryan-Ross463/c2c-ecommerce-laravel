@@ -26,7 +26,7 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
     </div>
 </div>
 
-<form id="product-form" action="<?php echo my_url('/seller/products/store'); ?>" method="POST" enctype="multipart/form-data">
+<form id="product-form" action="/seller/products/store" method="POST" enctype="multipart/form-data">
     <?php 
     echo csrf_field(); 
     ?>
