@@ -10,19 +10,15 @@ if (!function_exists('my_url')) {
      * @return string
      */    function my_url($path = null, $parameters = [], $secure = null)
     {
+        // Get the current base URL from the request
+        $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+        $baseUrl = $protocol . '://' . $host;
         
-        if (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'railway.app') !== false) {
-            $baseUrl = 'https://' . $_SERVER['HTTP_HOST'];
-        } else {
-            $baseUrl = config('app.url', 'http://localhost');
-           
-            if (!preg_match('/^https?:\/\//', $baseUrl)) {
-                $baseUrl = 'https://' . ltrim($baseUrl, '/');
-            }
-        }
-        
+        // Clean the path and ensure it starts with /
         $path = $path ? '/' . ltrim($path, '/') : '';
 
+        // Add query parameters if provided
         if (!empty($parameters)) {
             $path .= '?' . http_build_query($parameters);
         }
@@ -46,18 +42,16 @@ if (!function_exists('check_active')) {
 
 if (!function_exists('asset')) {
     function asset($path) {
+        // Get the current base URL from the request
+        $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+        $baseUrl = $protocol . '://' . $host;
         
+        // For Railway, don't add 'public' to the path since it's handled by the server
         if (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'railway.app') !== false) {
-            $baseUrl = 'https://' . $_SERVER['HTTP_HOST'];
-            
             return $baseUrl . '/' . ltrim($path, '/');
         } else {
-            $baseUrl = config('app.url', 'http://localhost');
-            
-            if (!preg_match('/^https?:\/\//', $baseUrl)) {
-                $baseUrl = 'https://' . ltrim($baseUrl, '/');
-            }
-            
+            // For local development, add 'public' to the path
             $publicPath = 'public/' . ltrim($path, '/');
             return $baseUrl . '/' . $publicPath;
         }
