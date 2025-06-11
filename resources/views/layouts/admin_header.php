@@ -357,93 +357,14 @@ try {
                 position: absolute !important;
             }
         }
-    </style>
-      <?php if ($current_page === 'dashboard' || $current_folder === 'dashboard'): ?>
+    </style>      <?php if ($current_page === 'dashboard' || $current_folder === 'dashboard'): ?>
    
-    <link rel="stylesheet" href="<?php echo asset('assets/css/admin_dashboard.css'); ?>">
+    <link rel="stylesheet" href="/assets/css/admin_dashboard.css">
     <?php endif; ?>
       <?php if (isset($custom_css)) echo $custom_css; ?>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Admin header JavaScript loading...');
-            
-            const menuToggle = document.getElementById('adminMenuToggle');
-            const adminNav = document.getElementById('adminNav');
-            
-            if (menuToggle && adminNav) {
-                menuToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    adminNav.classList.toggle('show');
-                    console.log("Menu toggled:", adminNav.classList.contains('show'));
-                });
-            }
-
-            const dropdownToggles = document.querySelectorAll('.admin-dropdown-toggle');
-            console.log('Found dropdown toggles:', dropdownToggles.length);
-            
-            dropdownToggles.forEach(function(toggle, index) {
-                console.log('Setting up dropdown', index + 1);
-                toggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    const parentDropdown = this.closest('.admin-dropdown');
-                    const isCurrentlyActive = parentDropdown.classList.contains('active');
-                    
-                    console.log('Dropdown clicked:', index + 1, 'Currently active:', isCurrentlyActive);
-                    
-                    document.querySelectorAll('.admin-dropdown').forEach(function(dropdown) {
-                        if (dropdown !== parentDropdown) {
-                            dropdown.classList.remove('active');
-                        }
-                    });
-                    
-                    if (!isCurrentlyActive) {
-                        parentDropdown.classList.add('active');
-                        console.log('Dropdown opened:', index + 1);
-                    } else {
-                        parentDropdown.classList.remove('active');
-                        console.log('Dropdown closed:', index + 1);
-                    }
-                });
-            });
-
-            document.addEventListener('click', function(e) {
-                if (e.target.closest('.modal') || 
-                    e.target.closest('[data-bs-toggle="modal"]') || 
-                    e.target.closest('.delete-user-btn') || 
-                    document.querySelector('.modal.show')) {
-                    return;
-                }
-                
-                if (!e.target.closest('.admin-nav') && !e.target.closest('#adminMenuToggle')) {
-                    if (window.innerWidth <= 992) {
-                        adminNav.classList.remove('show');
-                    }
-                }
-                
-                if (!e.target.closest('.admin-dropdown')) {
-                    document.querySelectorAll('.admin-dropdown').forEach(function(dropdown) {
-                        dropdown.classList.remove('active');
-                    });
-                }
-            });
-            
-            function handleResponsive() {
-                if (window.innerWidth > 992) {
-                    adminNav.classList.remove('show');
-                    document.querySelectorAll('.admin-dropdown').forEach(function(dropdown) {
-                        dropdown.classList.remove('active');
-                    });
-                }
-            }
-            
-            window.addEventListener('resize', handleResponsive);
-            
-            console.log('Admin header JavaScript loaded successfully');
-        });
+      <script>
+        // Basic initialization - detailed logic is in admin_header.js
+        console.log('Admin header loading...');
     </script>
     
     <script src="/assets/js/admin_header.js"></script>
