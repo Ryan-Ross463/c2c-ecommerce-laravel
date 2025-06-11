@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Seller\ProductController as SellerProductController;
 use Illuminate\Support\Facades\Redirect;
 
 Route::get('/health', function () {
@@ -50,16 +51,16 @@ Route::middleware(['web'])->group(function () {
         Route::post('/profile/update', [\App\Http\Controllers\Seller\ProfileController::class, 'update'])->name('seller.profile.update');
         Route::post('/profile/password', [\App\Http\Controllers\Seller\ProfileController::class, 'updatePassword'])->name('seller.profile.password');
         
-        Route::get('/products', [\App\Http\Controllers\Seller\ProductController::class, 'index'])->name('seller.products');
-        Route::get('/products/create', [\App\Http\Controllers\Seller\ProductController::class, 'create'])->name('seller.products.create');
-        Route::post('/products/store', [\App\Http\Controllers\Seller\ProductController::class, 'store'])->name('seller.products.store');
-        Route::get('/products/edit/{id}', [\App\Http\Controllers\Seller\ProductController::class, 'edit'])->name('seller.products.edit');
-        Route::post('/products/update/{id}', [\App\Http\Controllers\Seller\ProductController::class, 'update'])->name('seller.products.update');
-        Route::delete('/products/delete/{id}', [\App\Http\Controllers\Seller\ProductController::class, 'destroy'])->name('seller.products.delete');
-        Route::post('/products/bulk-action', [\App\Http\Controllers\Seller\ProductController::class, 'bulkAction'])->name('seller.products.bulk');
+        Route::get('/products', [SellerProductController::class, 'index'])->name('seller.products');
+        Route::get('/products/create', [SellerProductController::class, 'create'])->name('seller.products.create');
+        Route::post('/products/store', [SellerProductController::class, 'store'])->name('seller.products.store');
+        Route::get('/products/edit/{id}', [SellerProductController::class, 'edit'])->name('seller.products.edit');
+        Route::post('/products/update/{id}', [SellerProductController::class, 'update'])->name('seller.products.update');
+        Route::delete('/products/delete/{id}', [SellerProductController::class, 'destroy'])->name('seller.products.delete');
+        Route::post('/products/bulk-action', [SellerProductController::class, 'bulkAction'])->name('seller.products.bulk');
         
-        Route::post('/products/image/upload', [\App\Http\Controllers\Seller\ProductController::class, 'uploadImage'])->name('seller.products.upload.image');
-        Route::post('/products/image/delete', [\App\Http\Controllers\Seller\ProductController::class, 'deleteImage'])->name('seller.products.delete.image');
+        Route::post('/products/image/upload', [SellerProductController::class, 'uploadImage'])->name('seller.products.upload.image');
+        Route::post('/products/image/delete', [SellerProductController::class, 'deleteImage'])->name('seller.products.delete.image');
         
         Route::get('/orders', [\App\Http\Controllers\OrderController::class, 'index'])->name('seller.orders');
     });

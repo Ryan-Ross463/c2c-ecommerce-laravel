@@ -104,8 +104,7 @@ class ProductController extends Controller
             'request_data' => $request->all(),
             'user_id' => Auth::user()->user_id ?? 'not_authenticated'
         ]);
-        
-        $validator = Validator::make($request->all(), [
+          $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
@@ -113,20 +112,16 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,category_id',
             'condition_type' => 'required|string|in:New,Like New,Good,Fair,Poor',
             'status' => 'required|string|in:active,inactive',
-            'product_images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
-        ]);
-
-        if ($validator->fails()) {
+            'product_images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Made optional
+        ]);if ($validator->fails()) {
             return redirect()
                 ->back()
                 ->withErrors($validator)
                 ->withInput();
-        }if (!$request->hasFile('product_images')) {
-            return redirect()
-                ->back()
-                ->withErrors(['images' => 'At least one product image is required.'])
-                ->withInput();
-        }        $uploadPath = public_path('uploads/products');
+        }
+
+        // Image upload is now optional
+        $uploadPath = public_path('uploads/products');
         if (!file_exists($uploadPath)) {
             mkdir($uploadPath, 0777, true);
         }

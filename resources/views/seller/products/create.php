@@ -112,8 +112,8 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
         </div>
     </div>
     <div class="form-section">        <h3>Product Images</h3>
-        <div class="mb-3">            <label for="product_images" class="form-label">Upload Product Image <small class="text-muted">(Max 1 image, 2MB)</small></label>            <input type="file" class="form-control" id="product_images" name="product_images[]" accept="image/jpeg,image/png,image/jpg" required>
-            <div class="form-text text-muted">Required. Upload at least one product image (Max 2MB each). Supported formats: JPEG, PNG, JPG</div>
+        <div class="mb-3">            <label for="product_images" class="form-label">Upload Product Image <small class="text-muted">(Optional, Max 1 image, 2MB)</small></label>            <input type="file" class="form-control" id="product_images" name="product_images[]" accept="image/jpeg,image/png,image/jpg">
+            <div class="form-text text-muted">Optional. Upload product images (Max 2MB each). Supported formats: JPEG, PNG, JPG</div>
             <div id="image-preview" class="preview-container mt-3"></div>
             <input type="hidden" name="image_names" id="image_names">
         </div>
