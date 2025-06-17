@@ -1,8 +1,7 @@
-</div>    <footer class="admin-footer">
-        <div class="admin-footer-content">
+</div>    <footer class="admin-footer">        <div class="admin-footer-content">
             <div class="admin-footer-copyright">
-                &copy; <?php echo date('Y'); ?> C2C E-commerce Platform. All rights reserved.
-            </div>            <div class="admin-footer-links">
+                <?php echo date('Y'); ?> C2C E-commerce Platform. All rights reserved.
+            </div><div class="admin-footer-links">
                 <a href="/admin">Dashboard</a>
                 <span class="footer-separator">|</span>
                 <a href="/admin/reports">Reports</a>

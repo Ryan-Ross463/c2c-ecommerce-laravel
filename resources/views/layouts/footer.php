@@ -2,10 +2,9 @@
 </main>
 
 <footer id="main-footer">
-    <div class="container">
-        <div class="footer-brand">
+    <div class="container">        <div class="footer-brand">
             <h5><i class="fas fa-shopping-cart me-2"></i>C2C E-commerce</h5>
-            <p class="text-muted mb-0">&copy; <?php echo date('Y'); ?> C2C E-commerce. All rights reserved.</p>
+            <p class="text-muted mb-0"><?php echo date('Y'); ?> C2C E-commerce. All rights reserved.</p>
         </div>
         
         <div class="row g-3">
