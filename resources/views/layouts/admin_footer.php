@@ -58,7 +58,6 @@
             font-size: 0.8rem !important;
         }
 
-        /* Mobile responsive footer */
         @media (max-width: 768px) {
             .admin-footer-content {
                 flex-direction: column !important;
@@ -71,7 +70,6 @@
             }
         }
 
-        /* Ensure body has proper layout for sticky footer */
         body.admin-body {
             display: flex !important;
             flex-direction: column !important;
@@ -81,7 +79,7 @@
         .admin-main-content {
             flex: 1 !important;
         }
-    </style>    <!-- Bootstrap JavaScript -->
+    </style>   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
 <script>

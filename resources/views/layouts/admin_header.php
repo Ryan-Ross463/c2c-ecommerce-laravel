@@ -363,7 +363,6 @@ try {
     <?php endif; ?>
       <?php if (isset($custom_css)) echo $custom_css; ?>
       <script>
-        // Basic initialization - detailed logic is in admin_header.js
         console.log('Admin header loading...');
     </script>
     

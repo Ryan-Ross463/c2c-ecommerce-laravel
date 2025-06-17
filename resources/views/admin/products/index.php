@@ -8,6 +8,10 @@ if (file_exists($admin_header_path)) {
 } else {
     echo "<!-- Admin header file not found at: " . $admin_header_path . " -->";
 }
+
+// Load categories from database
+$categories = DB::table('categories')->get();
+
 ?>
 
 <div class="admin-content-main">
@@ -15,10 +19,9 @@ if (file_exists($admin_header_path)) {
         <div class="alert alert-danger mb-4">
             <i class="fas fa-exclamation-circle me-2"></i> <?php echo $error_message; ?>
         </div>
-    <?php endif; ?>
-      <div class="d-flex justify-content-between align-items-center mb-4">
+    <?php endif; ?>    <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="mb-0">Products Management</h1>
-        <a href="<?php echo my_url('/admin/products/create'); ?>" class="btn btn-primary">
+        <a href="/admin/products/create" class="btn btn-primary">
             <i class="fas fa-plus-circle me-2"></i>Add New Product
         </a>
     </div>
@@ -32,25 +35,20 @@ if (file_exists($admin_header_path)) {
         </div>
         
         <div class="card-body filters-container">
-            <form action="<?php echo my_url('/admin/products'); ?>" method="GET" class="row g-3">
+            <form action="/admin/products" method="GET" class="row g-3">
                 <div class="col-md-3">
                     <label for="search" class="form-label">Search:</label>
                     <input type="text" id="search" name="search" class="form-control" 
                         value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
-                </div>
-
-                <div class="col-md-3">
+                </div>                <div class="col-md-3">
                     <label for="category" class="form-label">Category:</label>
                     <select id="category" name="category" class="form-select">
                         <option value="">All Categories</option>
-                        <option value="1" <?php echo isset($_GET['category']) && $_GET['category'] == '1' ? 'selected' : ''; ?>>Electronics</option>
-                        <option value="2" <?php echo isset($_GET['category']) && $_GET['category'] == '2' ? 'selected' : ''; ?>>Clothing</option>
-                        <option value="3" <?php echo isset($_GET['category']) && $_GET['category'] == '3' ? 'selected' : ''; ?>>Home & Garden</option>
-                        <option value="4" <?php echo isset($_GET['category']) && $_GET['category'] == '4' ? 'selected' : ''; ?>>Books</option>
-                        <option value="5" <?php echo isset($_GET['category']) && $_GET['category'] == '5' ? 'selected' : ''; ?>>Toys & Games</option>
-                        <option value="6" <?php echo isset($_GET['category']) && $_GET['category'] == '6' ? 'selected' : ''; ?>>Sports</option>
-                        <option value="7" <?php echo isset($_GET['category']) && $_GET['category'] == '7' ? 'selected' : ''; ?>>Beauty</option>
-                        <option value="8" <?php echo isset($_GET['category']) && $_GET['category'] == '8' ? 'selected' : ''; ?>>Automotive</option>
+                        <?php foreach($categories as $category): ?>
+                            <option value="<?php echo $category->category_id; ?>" <?php echo isset($_GET['category']) && $_GET['category'] == $category->category_id ? 'selected' : ''; ?>>
+                                <?php echo htmlspecialchars($category->name); ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
                 
@@ -123,8 +121,7 @@ if (file_exists($admin_header_path)) {
                     <div class="d-flex gap-2">
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-search me-2"></i>Apply Filters
-                        </button>
-                        <a href="<?php echo my_url('/admin/products'); ?>" class="btn btn-secondary">
+                        </button>                        <a href="/admin/products" class="btn btn-secondary">
                             <i class="fas fa-redo me-2"></i>Reset
                         </a>
                     </div>
@@ -137,7 +134,7 @@ if (file_exists($admin_header_path)) {
         </div>
         
         <div class="bulk-actions-container d-none">
-            <form id="bulkActionsForm" action="<?php echo my_url('/admin/products/bulk-actions'); ?>" method="POST">
+            <form id="bulkActionsForm" action="/admin/products/bulk-actions" method="POST">
                 <?php echo csrf_field(); ?>
                 <div class="d-flex align-items-center">
                     <div class="me-3">

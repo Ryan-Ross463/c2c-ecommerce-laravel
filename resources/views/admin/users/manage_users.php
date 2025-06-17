@@ -156,7 +156,6 @@ include(resource_path('views/layouts/admin_header.php'));
         </div>
           <?php if(isset($users) && count($users) > 0 && isset($total_pages) && $total_pages > 1): ?>
             <?php
-                // Cast to integers to avoid "string - int" errors
                 $current_page = (int) $current_page;
                 $total_pages = (int) $total_pages;
             ?>
