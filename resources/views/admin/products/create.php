@@ -119,7 +119,7 @@ if (file_exists($admin_header_path)) {
                                 $sellers = DB::table('users')
                                     ->leftJoin('roles', 'users.role_id', '=', 'roles.role_id')
                                     ->select('users.*', 'roles.name as role_name')
-                                    ->where('users.role_id', 2) // Only sellers (role_id = 2)
+                                    ->where('users.role_id', 2) 
                                     ->orderBy('users.name')
                                     ->get();
                                 foreach($sellers as $seller): ?>

@@ -300,7 +300,6 @@
     font-size: 1.1rem;
 }
 
-/* Status badges */
 .status-badge {
     padding: 4px 12px;
     border-radius: 12px;
@@ -328,7 +327,6 @@
     border: 1px solid rgba(255, 193, 7, 0.2);
 }
 
-/* Additional Button Styling */
 .btn-outline-secondary {
     color: #6c757d;
     border-color: #6c757d;
@@ -340,7 +338,6 @@
     color: white;
 }
 
-/* Change Password Button */
 .btn-warning {
     background-color: #ffc107;
     border-color: #ffc107;
@@ -353,7 +350,6 @@
     color: #212529;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .profile-card,
     .profile-details {

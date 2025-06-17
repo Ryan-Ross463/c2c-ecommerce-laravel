@@ -9,7 +9,6 @@ if (file_exists($admin_header_path)) {
     echo "<!-- Admin header file not found at: " . $admin_header_path . " -->";
 }
 
-// Load categories from database
 $categories = DB::table('categories')->get();
 
 ?>
@@ -62,7 +61,7 @@ $categories = DB::table('categories')->get();
                         <option value="Fair" <?php echo isset($_GET['condition']) && $_GET['condition'] == 'Fair' ? 'selected' : ''; ?>>Fair</option>
                         <option value="Poor" <?php echo isset($_GET['condition']) && $_GET['condition'] == 'Poor' ? 'selected' : ''; ?>>Poor</option>
                     </select>
-                </div>                  <!-- Stock status filter removed as requested -->
+                </div>                 
                 
                 <div class="col-md-2">
                     <label for="status" class="form-label">Status:</label>
@@ -162,7 +161,8 @@ $categories = DB::table('categories')->get();
                             </div>
                         </th>
                         <th data-column="product-id">ID</th>
-                        <th data-column="product-image">Image</th>                        <th data-column="product-name">Name</th>
+                        <th data-column="product-image">Image</th>                        
+                        <th data-column="product-name">Name</th>
                         <th data-column="product-category">Category</th>
                         <th data-column="product-condition">Condition</th>
                         <th data-column="product-price">Price</th>
@@ -180,7 +180,8 @@ $categories = DB::table('categories')->get();
                                         <input class="form-check-input product-select" type="checkbox" name="product_ids[]" value="<?php echo $product->product_id; ?>" form="bulkActionsForm">
                                         <label class="form-check-label"></label>
                                     </div>                                </td>
-                                <td><?php echo $product->product_id; ?></td>                                <td>
+                                <td><?php echo $product->product_id; ?></td>                                
+                                <td>
                                     <div class="product-image-container">
                                         <?php if(!empty($product->image)): ?>
                                             <img src="<?php echo asset('uploads/products/' . $product->image); ?>" 
@@ -248,12 +249,11 @@ $categories = DB::table('categories')->get();
                                     <i class="fas fa-box-open mb-3 fa-3x"></i>
                                     <h4>No products found</h4>
                                     <p>There are no products matching your criteria.</p>
-                                    <?php if(isset($_GET['search']) || isset($_GET['category']) || isset($_GET['condition']) || isset($_GET['status'])): ?>
-                                        <a href="<?php echo my_url('/admin/products'); ?>" class="btn btn-outline-primary">
+                                    <?php if(isset($_GET['search']) || isset($_GET['category']) || isset($_GET['condition']) || isset($_GET['status'])): ?>                                        <a href="/admin/products" class="btn btn-outline-primary">
                                             <i class="fas fa-sync-alt me-2"></i>Clear Filters
                                         </a>
                                     <?php else: ?>
-                                        <a href="<?php echo my_url('/admin/products/create'); ?>" class="btn btn-primary">
+                                        <a href="/admin/products/create" class="btn btn-primary">
                                             <i class="fas fa-plus-circle me-2"></i>Add First Product
                                         </a>
                                     <?php endif; ?>
@@ -268,14 +268,13 @@ $categories = DB::table('categories')->get();
         <?php if(isset($pagination) && $pagination['total_pages'] > 1): ?>
         <div class="card-footer">
             <nav aria-label="Product pagination">
-                <ul class="pagination justify-content-center mb-0">
-                    <li class="page-item <?php echo $pagination['current_page'] == 1 ? 'disabled' : ''; ?>">
-                        <a class="page-link" href="<?php echo my_url('/admin/products?' . http_build_query(array_merge($_GET, ['page' => 1]))); ?>">
+                <ul class="pagination justify-content-center mb-0">                    <li class="page-item <?php echo $pagination['current_page'] == 1 ? 'disabled' : ''; ?>">
+                        <a class="page-link" href="/admin/products?<?php echo http_build_query(array_merge($_GET, ['page' => 1])); ?>">
                             <i class="fas fa-angle-double-left"></i>
                         </a>
                     </li>
                     <li class="page-item <?php echo $pagination['current_page'] == 1 ? 'disabled' : ''; ?>">
-                        <a class="page-link" href="<?php echo my_url('/admin/products?' . http_build_query(array_merge($_GET, ['page' => max(1, $pagination['current_page'] - 1)]))); ?>">
+                        <a class="page-link" href="/admin/products?<?php echo http_build_query(array_merge($_GET, ['page' => max(1, $pagination['current_page'] - 1)])); ?>">>
                             <i class="fas fa-angle-left"></i>
                         </a>
                     </li>
@@ -285,21 +284,19 @@ $categories = DB::table('categories')->get();
                     $end_page = min($pagination['total_pages'], $pagination['current_page'] + 2);
                     
                     for($i = $start_page; $i <= $end_page; $i++): 
-                    ?>
-                        <li class="page-item <?php echo $i == $pagination['current_page'] ? 'active' : ''; ?>">
-                            <a class="page-link" href="<?php echo my_url('/admin/products?' . http_build_query(array_merge($_GET, ['page' => $i]))); ?>">
+                    ?>                        <li class="page-item <?php echo $i == $pagination['current_page'] ? 'active' : ''; ?>">
+                            <a class="page-link" href="/admin/products?<?php echo http_build_query(array_merge($_GET, ['page' => $i])); ?>">
                                 <?php echo $i; ?>
                             </a>
                         </li>
                     <?php endfor; ?>
-                    
-                    <li class="page-item <?php echo $pagination['current_page'] == $pagination['total_pages'] ? 'disabled' : ''; ?>">
-                        <a class="page-link" href="<?php echo my_url('/admin/products?' . http_build_query(array_merge($_GET, ['page' => min($pagination['total_pages'], $pagination['current_page'] + 1)]))); ?>">
+                      <li class="page-item <?php echo $pagination['current_page'] == $pagination['total_pages'] ? 'disabled' : ''; ?>">
+                        <a class="page-link" href="/admin/products?<?php echo http_build_query(array_merge($_GET, ['page' => min($pagination['total_pages'], $pagination['current_page'] + 1)])); ?>">
                             <i class="fas fa-angle-right"></i>
                         </a>
                     </li>
                     <li class="page-item <?php echo $pagination['current_page'] == $pagination['total_pages'] ? 'disabled' : ''; ?>">
-                        <a class="page-link" href="<?php echo my_url('/admin/products?' . http_build_query(array_merge($_GET, ['page' => $pagination['total_pages']]))); ?>">
+                        <a class="page-link" href="/admin/products?<?php echo http_build_query(array_merge($_GET, ['page' => $pagination['total_pages']])); ?>">>
                             <i class="fas fa-angle-double-right"></i>
                         </a>
                     </li>
@@ -309,7 +306,6 @@ $categories = DB::table('categories')->get();
         <?php endif; ?>    </div>
 </div>
 
-<!-- Quick Edit Modal -->
 <div class="modal fade" id="quickEditModal" tabindex="-1" aria-labelledby="quickEditModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

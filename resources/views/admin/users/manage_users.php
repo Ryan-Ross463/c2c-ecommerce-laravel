@@ -213,11 +213,10 @@ include(resource_path('views/layouts/admin_header.php'));
 </div>
 
 <script>
-// Handle delete user modal
 document.addEventListener('DOMContentLoaded', function() {
     const deleteUserName = document.getElementById('deleteUserName');
     const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-    let userIdToDelete = null;    // Add click handlers to delete buttons
+    let userIdToDelete = null;   
     document.querySelectorAll('.delete-user-btn').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -227,62 +226,51 @@ document.addEventListener('DOMContentLoaded', function() {
             const userName = this.getAttribute('data-user-name');
             deleteUserName.textContent = userName;
             
-            // Store current scroll position
             const currentScrollY = window.scrollY;
             
-            // Create modal instance
             const modalElement = document.getElementById('deleteUserModal');
             const modal = new bootstrap.Modal(modalElement, {
                 backdrop: 'static',
                 keyboard: false
             });
             
-            // Prevent body scrolling when modal opens
             modalElement.addEventListener('shown.bs.modal', function () {
                 document.body.style.overflow = 'hidden';
-                document.body.style.paddingRight = '17px'; // Prevent layout shift
+                document.body.style.paddingRight = '17px'; 
             });
             
-            // Restore body scrolling when modal closes
             modalElement.addEventListener('hidden.bs.modal', function () {
                 document.body.style.overflow = '';
                 document.body.style.paddingRight = '';
-                // Restore original scroll position
                 window.scrollTo(0, currentScrollY);
             });
             
-            // Show modal
             modal.show();
         });
     });
 
-    // Handle confirm delete button click
     confirmDeleteBtn.addEventListener('click', function() {
         if (userIdToDelete) {
-            // Close modal first
+        
             const modal = bootstrap.Modal.getInstance(document.getElementById('deleteUserModal'));
             modal.hide();
             
-            // Create form and submit
             const form = document.createElement('form');
             form.method = 'POST';
             form.action = '/admin/users/delete/' + userIdToDelete;
             
-            // Add CSRF token
             const csrfInput = document.createElement('input');
             csrfInput.type = 'hidden';
             csrfInput.name = '_token';
             csrfInput.value = '<?php echo csrf_token(); ?>';
             form.appendChild(csrfInput);
             
-            // Add DELETE method
             const methodInput = document.createElement('input');
             methodInput.type = 'hidden';
             methodInput.name = '_method';
             methodInput.value = 'DELETE';
             form.appendChild(methodInput);
             
-            // Add return_to parameter if there are URL parameters
             const currentUrl = new URL(window.location.href);
             const searchParams = currentUrl.searchParams;
             if (searchParams.toString()) {
@@ -293,7 +281,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 form.appendChild(returnInput);
             }
             
-            // Submit form
             document.body.appendChild(form);
             form.submit();
         }

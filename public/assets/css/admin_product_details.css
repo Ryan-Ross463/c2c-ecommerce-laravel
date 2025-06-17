@@ -1,4 +1,3 @@
-/* Product view and edit page styles */
 .product-info-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -23,7 +22,6 @@
     font-weight: 500;
 }
 
-/* Statistics section styles */
 .stats-container {
     padding: 10px;
 }

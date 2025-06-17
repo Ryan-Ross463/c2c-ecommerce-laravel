@@ -29,7 +29,6 @@ include(resource_path('views/layouts/seller_dashboard_header.php'));
     <?php 
     echo csrf_field(); 
     ?>    
-    <!-- Debug: Show form action URL -->
     <script>console.log('Form action URL: /seller/products/store');</script>
     <?php if(session('error')): ?>
         <div class="alert alert-danger">

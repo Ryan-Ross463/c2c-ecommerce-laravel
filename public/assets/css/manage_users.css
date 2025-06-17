@@ -151,7 +151,6 @@
     border-color: #0062cc;
 }
 
-/* Modal positioning fixes */
 #deleteUserModal {
     z-index: 10050 !important;
 }
@@ -170,13 +169,11 @@
     z-index: 10049 !important;
 }
 
-/* Prevent body scroll when modal is open */
 body.modal-open {
     overflow: hidden !important;
     padding-right: 17px !important;
 }
 
-/* Ensure modal appears above all other content */
 .modal.fade .modal-dialog {
     transition: transform 0.3s ease-out;
 }
@@ -185,7 +182,6 @@ body.modal-open {
     transform: translate(-50%, -50%) !important;
 }
 
-/* Delete modal specific styling */
 #deleteUserModal .modal-content {
     border: none;
     border-radius: 8px;
